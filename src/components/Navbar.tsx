@@ -8,7 +8,7 @@ const NavBar = () => {
   return (
     <nav className=" w-screen flex p-2 justify-between">
       <div className="flex justify-between gap-2">
-        <Link to="/hjem">
+        <Link to="/">
           <img src={logo} alt="logo" className="h-10 w-10 invert" />
         </Link>
         <Button variant="outline" size="icon">
