@@ -1,9 +1,10 @@
+import { H1 } from "./components/Typography"
 import MainLayout from "./pages/MainLayout"
 
 function App() {
   return (
       <MainLayout>
-      hello world
+      <H1 text="Hello World!" />
       </MainLayout>
   )
 }
