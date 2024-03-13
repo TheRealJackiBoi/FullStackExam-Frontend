@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { Button, buttonVariants } from "./ui/button"
 import { Input } from "@/components/ui/input"
 import logo from "@/assets/logo.png"
+import { FaCompass } from "react-icons/fa6";
 
 const NavBar = () => {
   return (
@@ -11,7 +12,7 @@ const NavBar = () => {
           <img src={logo} alt="logo" className="h-10 w-10 invert" />
         </Link>
         <Button variant="outline" size="icon">
-          icon  
+          <FaCompass />  
         </Button> 
       </div>
 
