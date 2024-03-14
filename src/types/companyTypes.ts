@@ -1,11 +1,13 @@
+import { IAddress } from "./addressTypes";
+
 export interface ICompany {
     _id?: string;
     name: string;
     address: IAddress;
-    services: IService[];
+    //services: IService[];
     description: string;
-    admins?: ObjectId[];
-    owner?: ObjectId;
+    //admins?: ObjectId[];
+    //owner?: ObjectId;
     openForBooking: boolean;
     bustle?: Bustle;
   }

@@ -1,53 +1,52 @@
 import { P, H1, H2 } from "@/components/Typography"
 import { buttonVariants } from "@/components/ui/button"
 import { getCompanyByID } from "@/graphql/company/companyQueries"
-import { UseQueryRefHandlersResult, useQuery } from "@apollo/client"
+import { useQuery } from "@apollo/client"
 import { Link } from "react-router-dom"
 import { FaCalendarDay } from "react-icons/fa6"
 import { Table } from "@/components/ui/table"
+import { ICompany } from "@/types/companyTypes"
 
 interface companyProp {
   companyId: string
 }
 
 const CompanyHomePage = (props: companyProp) => {
-  const { data, loading } = useQuery(getCompanyByID, {
-    //variables: { _id: "65f2e44f45a53b3aaf8a0b31" },
+  const { data, loading } = useQuery<ICompany>(getCompanyByID, {
     variables: { id: props.companyId },
   })
 
-  if(loading) {
-    return (
-      <H1 text="Loading Company"></H1>
-    );
+  if (loading) {
+    return <H1 text="Loading Company"></H1>
   }
 
-  if(!data ) {
-    return (
-      <H1 text="No Company found"></H1>
-    );
+  if (!data) {
+    return <H1 text="No Company found"></H1>
   }
 
   return (
     <>
       <div>
-        <Rendere company={data} />
+        <Rendere specificCompany={data} />
       </div>
     </>
   )
 }
 
-function Rendere({ company: company }) {
+function Rendere({ specificCompany: data }: ICompany ) {
   return (
     <>
       <div>
         <div>
           <div>
-            <H1 text={company?.company.name + " companyNamePlaceHolder"}></H1>
+            <H1 text={data?.company.name}></H1>
+          </div>
+          <div>
+            {data.company.openForBooking ? <P text={"Open"} /> : <P text="Closed" />}
           </div>
         </div>
         <div>
-          <P text={company?.company.description + " CompanyDescPlaceHolder"}></P>
+          <P text={data?.company.description}></P>
           <Link className={buttonVariants()}>
             <FaCalendarDay />
             Book tid{" "}
@@ -68,4 +67,4 @@ function Rendere({ company: company }) {
   )
 }
 
-export default CompanyHomePage;
+export default CompanyHomePage
