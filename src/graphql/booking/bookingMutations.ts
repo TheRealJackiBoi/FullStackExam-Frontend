@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express"
+import { gql } from "@apollo/client"
 
 export const createBooking = gql`
   mutation Mutation($startTime: String!, $endTime: String!, $status: Status!, $device: String!, $cost: Float!, $serviceId: ID!, $token: String!) {
