@@ -14,6 +14,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import { ThemeProvider } from "./components/theme-provider.tsx";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -31,7 +32,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <RouterProvider router={router} />
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </ApolloProvider>
   </React.StrictMode>
 );
