@@ -21,8 +21,8 @@ export const createBooking = gql`
 `
 
 export const updateBooking = gql`
-  mutation Mutation($id: ID!, $device: String!, $cost: Float!, $serviceId: ID!, $token: String!) {
-    updateBooking(_id: $id, device: $device, cost: $cost, serviceId: $serviceId, token: $token) {
+  mutation Mutation($id: ID!, $device: String!, $cost: Float!, $serviceId: ID!, $token: String!, $status: Status) {
+    updateBooking(_id: $id, device: $device, cost: $cost, serviceId: $serviceId, token: $token, status: $status) {
       _id
       startTime
       endTime

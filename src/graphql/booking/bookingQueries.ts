@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client"
 
-export const getBooking = gql`
+export const getBookingByID = gql`
   query Query($id: ID!, $token: String!) {
     booking(_id: $id, token: $token) {
       _id
