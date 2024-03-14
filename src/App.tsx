@@ -1,11 +1,12 @@
+import ServiceCard from "./components/ServiceCard"
 import { H1 } from "./components/Typography"
 import MainLayout from "./pages/MainLayout"
 
 function App() {
   return (
-      <MainLayout>
-      <H1 text="Hello World!" />
-      </MainLayout>
+    <MainLayout>
+      <H1 text="Hello World!" /> 
+    </MainLayout>
   )
 }
 
