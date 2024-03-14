@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { userCreationSchema } from "@/schema/signup"
 import { z } from "zod"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -15,9 +15,12 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { CREATE_USER } from "@/graphql/authQueries"
 import { useMutation } from "@apollo/client"
+import { useToast } from "@/components/ui/use-toast"
+import { Link } from "react-router-dom"
 
 function Signup() {
   const [createUser] = useMutation(CREATE_USER)
+  const { toast } = useToast()
 
   const form = useForm({
     resolver: zodResolver(userCreationSchema),
@@ -27,15 +30,15 @@ function Signup() {
       user: {
         firstName: "",
         lastName: "",
-        role: "USER",
-        zipCode: "",
+        role: "USER", // Set the default role to "USER"
         street: "",
-        city: "",
+        houseNumber: "",
+        zipCode: "",
       },
     },
   })
 
-  function onSubmit(values: z.infer<typeof userCreationSchema>) {
+  async function onSubmit(values: z.infer<typeof userCreationSchema>) {
     createUser({
       variables: {
         email: values.email,
@@ -43,15 +46,31 @@ function Signup() {
         user: {
           firstName: values.user.firstName,
           lastName: values.user.lastName,
-          role: values.user.role, // Use the role value from the form data
-          zipCode: values.user.zipCode,
+          role: values.user.role,
           street: values.user.street,
-          city: values.user.city,
+          houseNumber: parseInt(values.user.houseNumber),
+          zipCode: parseInt(values.user.zipCode),
         },
       },
     })
-
-    form.reset()
+      .then((res) => {
+        toast({
+          title: "Bruger oprettet",
+          description: "Du kan nu logge ind",
+          action: (
+            <Link className={buttonVariants()} to="/login">
+              Log ind
+            </Link>
+          ),
+        })
+      })
+      .catch((err) => {
+        toast({
+          variant: "destructive",
+          title: "Fejl ved oprettelse af bruger",
+          description: "Bruger eksisterer allerede",
+        })
+      })
   }
 
   return (
@@ -80,7 +99,7 @@ function Signup() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Adgangskode</FormLabel>
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
@@ -117,19 +136,6 @@ function Signup() {
 
             <FormField
               control={form.control}
-              name="user.zipCode"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Postnummer</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="user.street"
               render={({ field }) => (
                 <FormItem>
@@ -143,12 +149,26 @@ function Signup() {
             />
             <FormField
               control={form.control}
-              name="user.city"
+              name="user.houseNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>By</FormLabel>
+                  <FormLabel>Nummer</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="user.zipCode"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Postnummer</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
