@@ -1,11 +1,11 @@
-import { Button } from './components/ui/button'
+import { H1 } from "./components/Typography"
+import MainLayout from "./pages/MainLayout"
 
 function App() {
-
   return (
-    <>
-      <Button>Click me</Button>
-    </>
+      <MainLayout>
+      <H1 text="Hello World!" />
+      </MainLayout>
   )
 }
 
