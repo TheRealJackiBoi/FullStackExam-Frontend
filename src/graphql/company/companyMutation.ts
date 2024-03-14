@@ -23,7 +23,7 @@ export const createCompany = gql`
   }
 `
 
-export const updateCompany = gql`
+export const updateCompanyByID = gql`
   mutation Mutation($id: ID!, $token: String!, $houseNumber: Int, $streetName: String, $zipCode: Int, $description: String, $name: String) {
     updateCompany(_id: $id, token: $token, houseNumber: $houseNumber, streetName: $streetName, zipCode: $zipCode, description: $description, name: $name) {
       _id
@@ -37,6 +37,34 @@ export const updateCompany = gql`
       description
       openForBooking
       bustle
+    }
+  }
+`
+
+export const deleteCompanyByID = gql`
+  mutation Mutation($id: ID!, $token: String!) {
+    deleteCompany(_id: $id, token: $token) {
+      _id
+      name
+    }
+  }
+`
+
+export const removeCompanyAdmin = gql`
+  mutation Mutation($userId: ID!, $companyId: ID!, $token: String!) {
+    deleteCompanyAdmin(userId: $userId, companyId: $companyId, token: $token) {
+      _id
+      name
+      admins {
+        firstName
+        _id
+        lastName
+      }
+      owner {
+        _id
+        firstName
+        lastName
+      }
     }
   }
 `
