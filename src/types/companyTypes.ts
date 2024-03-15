@@ -1,10 +1,10 @@
-import { IAddress } from "./addressTypes";
+import { Address } from "./addressTypes";
 import { Service } from "./serviceTypes";
 
-export interface ICompany {
+export interface Company {
     _id?: string;
     name: string;
-    address: IAddress;
+    address: Address;
     services: Service[];
     description: string;
     //admins?: ObjectId[];

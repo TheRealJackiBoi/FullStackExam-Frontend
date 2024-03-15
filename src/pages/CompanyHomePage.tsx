@@ -12,15 +12,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { ICompany } from "@/types/companyTypes"
+import { Company } from "@/types/companyTypes"
 
 //test route /company/65f2e44f45a53b3aaf8a0b31
 
 const CompanyHomePage = () => {
-  const params = useParams()
+  const { id } = useParams()
 
-  const { data, loading } = useQuery<ICompany>(getCompanyByID, {
-    variables: { id: params.id },
+  const { data, loading } = useQuery<Company>(getCompanyByID, {
+    variables: { id: id },
   })
 
   if (loading) {
@@ -40,7 +40,7 @@ const CompanyHomePage = () => {
   )
 }
 
-function Rendere({ specificCompany: data }: ICompany) {
+function Rendere({ specificCompany: data }: Company) {
   return (
     <>
       <div>
