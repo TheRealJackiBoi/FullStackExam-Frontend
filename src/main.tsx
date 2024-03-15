@@ -9,6 +9,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom"
+import { ThemeProvider } from "./components/theme-provider.tsx"
 import Signup from "./pages/Signup"
 import Login from "@/pages/Login.tsx"
 import { AuthProvider } from "@/util/AuthContext.tsx"
@@ -30,9 +31,11 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <ThemeProvider>
         <RouterProvider router={router} />
-      </ApolloProvider>
+      </ThemeProvider>
+    </ApolloProvider>
     </AuthProvider>
   </React.StrictMode>
 )
