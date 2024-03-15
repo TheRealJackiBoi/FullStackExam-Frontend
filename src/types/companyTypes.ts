@@ -1,10 +1,11 @@
 import { IAddress } from "./addressTypes";
+import { Service } from "./serviceTypes";
 
 export interface ICompany {
     _id?: string;
     name: string;
     address: IAddress;
-    //services: IService[];
+    services: Service[];
     description: string;
     //admins?: ObjectId[];
     //owner?: ObjectId;
