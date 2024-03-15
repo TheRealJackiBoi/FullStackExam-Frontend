@@ -2,7 +2,7 @@ import { IAddress } from "./addressTypes";
 import { Service } from "./serviceTypes";
 import { User } from "./usertypes";
 
-export interface ICompany {
+export interface Company {
     _id?: string;
     name: string;
     address: IAddress;
