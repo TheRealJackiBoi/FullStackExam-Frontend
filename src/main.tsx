@@ -15,6 +15,7 @@ import {
   Route,
 } from "react-router-dom"
 import { ThemeProvider } from "./components/theme-provider.tsx"
+import CompanyAdminPage from "./pages/CompanyAdminPage.tsx"
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -25,6 +26,10 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
       <Route index element={<App />} />
+      <Route path="company">
+        <Route path=":id" element={<div>Company ID</div>} />
+        <Route path=":id/admin" element={<CompanyAdminPage />} />
+      </Route>
     </Route>
   )
 )
