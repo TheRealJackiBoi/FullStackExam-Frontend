@@ -33,7 +33,10 @@ const CompanyAdminPage: FC = () => {
     <>
       <H1 text={company!.name} className=" my-4 "/>
       {/* description */}
-      <H2 text="Services" />
+      <div className="flex w-full justify-between">
+        <H2 text="Services" className=" border-b-0" />
+        <Button variant={"secondary"} className=" bg-blue-500 text-white">Tilføj service</Button>
+      </div>
       <Card className="p-2 mt-2">
         <Table className=" rounded-xl ">
           <TableHeader>
