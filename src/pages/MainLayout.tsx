@@ -1,15 +1,15 @@
-import NavBar from "@/components/Navbar";
-import { ReactNode } from "react";
+import NavBar from "@/components/Navbar"
+import { Toaster } from "@/components/ui/toaster"
+import { ReactNode } from "react"
 
-
-const MainLayout = ({ children }: { children: ReactNode}) => {
-
+const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <div>
+    <>
       <NavBar />
-      {children}
-    </div>
-  );
+      <div className="container mx-auto px-4">{children}</div>
+      <Toaster />
+    </>
+  )
 }
 
-export default MainLayout;
+export default MainLayout
