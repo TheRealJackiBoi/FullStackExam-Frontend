@@ -3,7 +3,7 @@ import { Button, buttonVariants } from "./ui/button"
 import { Input } from "@/components/ui/input"
 import logo from "@/assets/logo.png"
 import { FaCompass } from "react-icons/fa6"
-import useAuth from "@/util/authFacade"
+import useAuth from "@/util/AuthContext"
 
 const NavBar = () => {
   const { user, logout } = useAuth()

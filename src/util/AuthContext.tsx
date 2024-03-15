@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from "react"
-import facade from "@/util/facade"
+import facade from "@/util/authFacade"
 import { LoginData } from "@/types/usertypes"
 import { AuthContextType } from "@/types/authTypes"
 
