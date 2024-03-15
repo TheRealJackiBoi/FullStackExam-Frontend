@@ -14,6 +14,7 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import CompanyHomePage from "./pages/CompanyHomePage.tsx";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
       <Route index element={<App />} />
+      <Route path="company/:id" element={<CompanyHomePage />}/>
     </Route>
   )
 );

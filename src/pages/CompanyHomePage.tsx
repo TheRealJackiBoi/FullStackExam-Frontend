@@ -2,7 +2,7 @@ import { P, H1, H2 } from "@/components/Typography"
 import { buttonVariants } from "@/components/ui/button"
 import { getCompanyByID } from "@/graphql/company/companyQueries"
 import { useQuery } from "@apollo/client"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { FaCalendarDay } from "react-icons/fa6"
 import {
   Table,
@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/table"
 import { ICompany } from "@/types/companyTypes"
 
-interface companyProp {
-  companyId: string
-}
+//test route /company/65f2e44f45a53b3aaf8a0b31
 
-const CompanyHomePage = (props: companyProp) => {
+const CompanyHomePage = () => {
+  const params = useParams()
+
   const { data, loading } = useQuery<ICompany>(getCompanyByID, {
-    variables: { id: props.companyId },
+    variables: { id: params.id },
   })
 
   if (loading) {
@@ -41,7 +41,6 @@ const CompanyHomePage = (props: companyProp) => {
 }
 
 function Rendere({ specificCompany: data }: ICompany) {
-
   return (
     <>
       <div>
@@ -91,10 +90,9 @@ function Rendere({ specificCompany: data }: ICompany) {
           <div className="flex space-x-4">
             <div>
               <H2 text="Services"></H2>
-                    <TableHead className="font-semibold">Kategorier</TableHead>
+              <TableHead className="font-semibold">Kategorier</TableHead>
               <Table className="border border-double border-2 ">
-                <TableHeader>
-                </TableHeader>
+                <TableHeader></TableHeader>
                 <TableBody>
                   {data.company.services.map((service) => (
                     <TableRow key={service.id}>
