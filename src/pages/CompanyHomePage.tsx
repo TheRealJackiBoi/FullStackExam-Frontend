@@ -1,6 +1,6 @@
 import { P, H1, H2 } from "@/components/Typography"
 import { buttonVariants } from "@/components/ui/button"
-import { getCompanyByID } from "@/graphql/company/companyQueries"
+import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import { useQuery } from "@apollo/client"
 import { Link, useParams } from "react-router-dom"
 import { FaCalendarDay } from "react-icons/fa6"
@@ -19,7 +19,7 @@ import { Company } from "@/types/companyTypes"
 const CompanyHomePage = () => {
   const { id } = useParams()
 
-  const { data, loading } = useQuery<Company>(getCompanyByID, {
+  const { data, loading } = useQuery<Company>(GET_COMPANY_BY_ID, {
     variables: { id: id },
   })
 
