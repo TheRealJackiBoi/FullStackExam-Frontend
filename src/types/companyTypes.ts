@@ -1,15 +1,17 @@
 import { IAddress } from "./addressTypes";
+import { Service } from "./serviceTypes";
+import { User } from "./usertypes";
 
 export interface ICompany {
     _id?: string;
     name: string;
     address: IAddress;
-    //services: IService[];
     description: string;
     //admins?: ObjectId[];
-    //owner?: ObjectId;
+    owner?: User;
     openForBooking: boolean;
     bustle?: Bustle;
+    services?: Service[];
   }
 
   export enum Bustle {
