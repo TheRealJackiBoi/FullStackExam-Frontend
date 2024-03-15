@@ -1,5 +1,4 @@
 import { H1 } from "./components/Typography"
-import CompanyHomePage from "./pages/CompanyHomePage"
 import MainLayout from "./pages/MainLayout"
 
 function App() {

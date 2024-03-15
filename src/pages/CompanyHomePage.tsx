@@ -91,7 +91,7 @@ function Rendere({ specificCompany: data }: ICompany) {
             <div>
               <H2 text="Services"></H2>
               <TableHead className="font-semibold">Kategorier</TableHead>
-              <Table className="border border-double border-2 ">
+              <Table className=" border-double border-2 ">
                 <TableHeader></TableHeader>
                 <TableBody>
                   {data.company.services.map((service) => (
