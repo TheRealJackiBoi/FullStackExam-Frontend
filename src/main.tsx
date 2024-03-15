@@ -11,7 +11,7 @@ import {
 } from "react-router-dom"
 import Signup from "./pages/Signup"
 import Login from "@/pages/Login.tsx"
-import { AuthProvider } from "@/util/AuthContext.tsx"
+import { AuthProvider } from "@/util/authFacade.tsx"
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",

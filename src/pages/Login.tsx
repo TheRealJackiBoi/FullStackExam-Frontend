@@ -17,7 +17,7 @@ import { LOGIN_USER } from "@/graphql/authQueries"
 import { useLazyQuery } from "@apollo/client"
 import { useToast } from "@/components/ui/use-toast"
 import { LoginResponse } from "@/types/usertypes"
-import useAuth from "@/util/AuthContext"
+import useAuth from "@/util/authFacade"
 import { useNavigate } from "react-router-dom"
 
 function Login() {
