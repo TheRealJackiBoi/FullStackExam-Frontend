@@ -11,8 +11,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (userData: LoginData) => {
     facade.setToken(userData.token)
-    console.log(userData)
-
     facade.setUser(userData.user)
     setUser(userData.user)
   }
