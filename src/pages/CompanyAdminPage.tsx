@@ -6,10 +6,10 @@ import { GET_COMPANY } from "@/graphql/companyQueries"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Company } from "@/types/companyTypes"
 import CompanyAdminServiceTable from "@/components/CompanyAdminServiceTable"
-import useAuth from "@/util/AuthContext"
 import facade from "@/util/authFacade"
 import { GET_USER } from "@/graphql/user/userQueries"
 import { User } from "@/types/usertypes"
+import DescriptionForm from "@/components/DescriptionForm"
 
 const CompanyAdminPage: FC = () => {
   const token = facade.getToken()
@@ -61,7 +61,7 @@ const CompanyAdminPage: FC = () => {
   return (
     <>
       <H1 text={company!.name} className=" my-4 " />
-      {/* description */}
+      <DescriptionForm company={company} />
       <CompanyAdminServiceTable company={company} token={token} />
     </>
   )

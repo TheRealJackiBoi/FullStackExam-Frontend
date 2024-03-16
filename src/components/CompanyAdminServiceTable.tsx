@@ -15,8 +15,8 @@ import { H2 } from "./Typography"
 const CompanyAdminServiceTable = ({ company, token}: { company: Company, token: string }) => {
   return (
     <>
-      <div className="flex w-full justify-between">
-        <H2 text="Services" className=" border-b-0" />
+      <div className="flex w-full justify-between mt-4">
+        <H2 text="Services" />
         <CreateServiceModal companyId={ company._id! } token={token}/>
       </div>
       <Card className="p-2 mt-2">
