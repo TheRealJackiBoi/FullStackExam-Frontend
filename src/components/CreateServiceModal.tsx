@@ -9,8 +9,68 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "./ui/button"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { serviceSchema } from "@/schema/service"
+import { z } from "zod"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form"
+import { Input } from "./ui/input"
+import { useMutation } from "@apollo/client"
+import { CREATE_SERVICE } from "@/graphql/service/serviceMutations"
+import { useToast } from "./ui/use-toast"
+import { GET_COMPANY } from "@/graphql/companyQueries"
 
-const CreateServiceModal = () => {
+const CreateServiceModal = ({ companyId, token }: { companyId: string, token: string }) => {
+  const [createService] = useMutation(CREATE_SERVICE, {
+    refetchQueries: [GET_COMPANY],
+  })  
+  const { toast } = useToast()
+
+  const form = useForm<z.infer<typeof serviceSchema>>({
+    resolver: zodResolver(serviceSchema),
+    defaultValues: {
+      name: "",
+      estimatedPrice: "",
+      imageUrl: "",
+      estimatedTime: "",
+    },
+  })
+
+  const onSubmit = async(values: z.infer<typeof serviceSchema>) => {
+    await createService({
+      variables: {
+        name: values.name,
+        estimatedTime: parseInt(values.estimatedTime),
+        estimatedPrice: parseFloat(values.estimatedPrice),
+        imageUrl: values.imageUrl,
+        companyId: companyId,
+        token: token,
+      },
+    })
+    .then(() => {
+      toast({
+        title: "Service tilføjet",
+        description: "Service er nu tilføjet til virksomheden",
+      })
+    })
+    .catch((error: Error) => {
+      toast({
+        variant: "destructive",
+        title: "Fejl",
+        description: "Kunne ikke lave service, prøv igen senere",
+      })
+      console.log(error)
+    })
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -29,30 +89,83 @@ const CreateServiceModal = () => {
           </DialogDescription>
         </DialogHeader>
 
-        <div>
-          <div className="flex flex-col">
-            <label htmlFor="name">Navn</label>
-            <input type="text" name="name" id="name" />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="estimatedPrice">Pris</label>
-            <input type="number" name="estimatedPrice" id="estimatedPrice" />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="imageUrl">Billede</label>
-            <input type="file" name="imageUrl" id="imageUrl" />
-          </div>
-        </div>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button
-              variant={"secondary"}
-              className=" bg-blue-500 text-white hover:bg-blue-300"
-            >
-              Tilføj
-            </Button>
-          </DialogClose>
-        </DialogFooter>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Service Navn</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Navn" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Navnet på den service du vil tilføje
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="estimatedPrice"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Estimeret Pris</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Den estimerede pris for service
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Billede url</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="Billede url" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Url til et billede af service
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="estimatedTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Estimeret tid</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Den estimerede tid for service
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <DialogFooter>
+              <Button
+                type="submit"
+                variant={"secondary"}
+                className=" bg-blue-500 text-white hover:bg-blue-300"
+              >
+                Tilføj
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   )

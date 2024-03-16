@@ -9,13 +9,14 @@ import {
 import { Company } from "@/types/companyTypes"
 import { Button } from "./ui/button"
 import CreateServiceModal from "./CreateServiceModal"
+import { H2 } from "./Typography"
 
-const CompanyAdminServiceTable = ({ company }: { company: Company }) => {
+const CompanyAdminServiceTable = ({ company, token}: { company: Company, token: string }) => {
   return (
     <>
       <div className="flex w-full justify-between">
         <H2 text="Services" className=" border-b-0" />
-        <CreateServiceModal />
+        <CreateServiceModal companyId={ company._id! } token={token}/>
       </div>
       <Card className="p-2 mt-2">
         <Table className=" rounded-xl ">
