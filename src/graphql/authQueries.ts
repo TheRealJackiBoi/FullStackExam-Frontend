@@ -14,6 +14,10 @@ export const LOGIN_USER = gql`
           houseNumber
           zipCode
         }
+        company {
+          _id
+          name
+        }
       }
     }
   }

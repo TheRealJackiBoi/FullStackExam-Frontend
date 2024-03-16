@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form"
 import { H2 } from "./Typography"
-import { Card, CardContent } from "./ui/card"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -9,13 +8,7 @@ import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import { Company } from "@/types/companyTypes"
 
-const DescriptionForm = ({
-  company,
-  token,
-}: {
-  company: Company
-  token: string
-}) => {
+const DescriptionForm = ({ company }: { company: Company }) => {
   const form = useForm<z.infer<typeof companyDescriptionSchema>>({
     resolver: zodResolver(companyDescriptionSchema),
     defaultValues: {
