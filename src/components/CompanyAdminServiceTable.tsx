@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card"
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -32,20 +33,20 @@ const CompanyAdminServiceTable = ({ company, token}: { company: Company, token: 
             {company.services &&
               company.services.map((service) => (
                 <TableRow key={service._id}>
-                  <td>
+                  <TableCell className=" rounded-full w-10 h-full mx-auto -p-2 overflow-hidden flex justify-center">
                     <img
                       src={service.imageUrl}
                       alt={service.name}
-                      className="w-10 h-10 object-cover rounded-full"
+                      className="w-full h-auto object-cover rounded-full"
                     />
-                  </td>
-                  <td>{service.name}</td>
-                  <td>{service.estimatedPrice}</td>
-                  <td>
+                  </TableCell>
+                  <TableCell>{service.name}</TableCell>
+                  <TableCell>{service.estimatedPrice}</TableCell>
+                  <TableCell className="flex justify-end gap-2">
                     {/* select for devices */}
                     <Button variant={"secondary"}>Ændre billede</Button>
                     <Button variant={"destructive"}>Slet</Button>
-                  </td>
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
