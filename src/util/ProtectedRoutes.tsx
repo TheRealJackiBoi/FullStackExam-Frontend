@@ -20,8 +20,6 @@ export const ProtectedRoute: React.FC<
     if (id === undefined) return false
 
     for (const authCheck of authChecks) {
-      console.log(user, { id })
-
       if (authCheck(user!, { id })) {
         return true
       }
