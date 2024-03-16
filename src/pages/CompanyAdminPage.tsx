@@ -8,18 +8,28 @@ import { Company } from "@/types/companyTypes"
 import CompanyAdminServiceTable from "@/components/CompanyAdminServiceTable"
 import useAuth from "@/util/AuthContext"
 import facade from "@/util/authFacade"
+import { GET_USER } from "@/graphql/user/userQueries"
+import { User } from "@/types/usertypes"
 
 const CompanyAdminPage: FC = () => {
-  const { user } = useAuth()
   const token = facade.getToken()
-
+  let user: User | null = null;
+  const userId = facade.getIdFromToken()
   const { id } = useParams()
 
+  const userRes = useQuery(GET_USER, {
+    variables: { id: userId, token: token },
+  })
+
+  // fetching company data
   const { loading, error, data } = useQuery(GET_COMPANY, {
     variables: { id },
   })
 
-  console.log(user, token)
+  // loading and error handling for user
+  if (userRes.loading) return <p>Loading...</p>
+  if (userRes.error) return <p>Error</p>
+  user = userRes.data.user
 
   // validating user and token
   if (!user || !token) {
@@ -29,7 +39,6 @@ const CompanyAdminPage: FC = () => {
   if ((!user.company || user.company._id !== id) && user.role !== "ADMIN") {
     return <H1 text="Du er ikke tilknyttet en virksomhed" />
   }
-  
 
   // loading and error handling
   if (loading)
@@ -40,14 +49,20 @@ const CompanyAdminPage: FC = () => {
         <Skeleton className="h-10" />
       </>
     )
-  if (error) return <p>Error :(</p>
+  if (error)
+    return (
+      <>
+        <H1 text="Fejl" />
+        <H2 text="Der skete en fejl, prøv igen senere" />
+      </>
+    )
 
   const company: Company = data?.company
   return (
     <>
       <H1 text={company!.name} className=" my-4 " />
       {/* description */}
-      <CompanyAdminServiceTable company={company} token={token}/>
+      <CompanyAdminServiceTable company={company} token={token} />
     </>
   )
 }

@@ -10,6 +10,17 @@ function facade() {
     return Cookies.get("token")
   }
 
+  const getIdFromToken = () => {
+    const token = getToken()
+    if (token) {
+      const payload = token.split(".")[1]
+      const decoded = atob(payload)
+      const parsed = JSON.parse(decoded)
+      return parsed.id
+    }
+    return null
+  }
+
   const setUser = (user: User) => {
     localStorage.setItem("user", JSON.stringify(user))
   }
@@ -30,6 +41,7 @@ function facade() {
   return {
     setToken,
     getToken,
+    getIdFromToken,
     setUser,
     logout,
     getUser,
