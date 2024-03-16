@@ -11,6 +11,7 @@ import { Company } from "@/types/companyTypes"
 import { Button } from "./ui/button"
 import CreateServiceModal from "./CreateServiceModal"
 import { H2 } from "./Typography"
+import DeleteServiceButton from "./DeleteServiceButton"
 
 const CompanyAdminServiceTable = ({ company, token}: { company: Company, token: string }) => {
   return (
@@ -45,7 +46,7 @@ const CompanyAdminServiceTable = ({ company, token}: { company: Company, token: 
                   <TableCell className="flex justify-end gap-2">
                     {/* select for devices */}
                     <Button variant={"secondary"}>Ændre billede</Button>
-                    <Button variant={"destructive"}>Slet</Button>
+                    <DeleteServiceButton serviceId={service._id!} token={token} />
                   </TableCell>
                 </TableRow>
               ))}
