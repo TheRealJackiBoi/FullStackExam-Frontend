@@ -61,7 +61,7 @@ const CompanyAdminPage: FC = () => {
   return (
     <>
       <H1 text={company!.name} className=" my-4 " />
-      <DescriptionForm company={company} />
+      <DescriptionForm company={company} token={token} />
       <CompanyAdminServiceTable company={company} token={token} />
     </>
   )

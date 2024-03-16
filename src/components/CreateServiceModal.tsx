@@ -57,16 +57,16 @@ const CreateServiceModal = ({ companyId, token }: { companyId: string, token: st
     })
     .then(() => {
       toast({
-        title: "Service tilføjet",
-        description: "Service er nu tilføjet til virksomheden",
+        title: "service tilføjet",
+        description: "service er nu tilføjet til virksomheden",
       })
       form.reset()
     })
     .catch((error: Error) => {
       toast({
         variant: "destructive",
-        title: "Fejl",
-        description: "Kunne ikke lave service, prøv igen senere",
+        title: "fejl",
+        description: "kunne ikke lave service, prøv igen senere",
       })
       console.log(error)
     })

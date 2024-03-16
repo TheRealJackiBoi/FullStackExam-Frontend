@@ -7,8 +7,23 @@ import { companyDescriptionSchema } from "@/schema/companyDescription"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import { Company } from "@/types/companyTypes"
+import { useMutation } from "@apollo/client"
+import { updateCompanyByID } from "@/graphql/company/companyMutation"
+import { GET_COMPANY } from "@/graphql/companyQueries"
+import { useToast } from "./ui/use-toast"
 
-const DescriptionForm = ({ company }: { company: Company }) => {
+const DescriptionForm = ({
+  company,
+  token,
+}: {
+  company: Company
+  token: string
+}) => {
+  const { toast } = useToast()
+  const [updateCompany] = useMutation(updateCompanyByID, {
+    refetchQueries: [GET_COMPANY],
+  })
+
   const form = useForm<z.infer<typeof companyDescriptionSchema>>({
     resolver: zodResolver(companyDescriptionSchema),
     defaultValues: {
@@ -17,7 +32,32 @@ const DescriptionForm = ({ company }: { company: Company }) => {
   })
 
   const onSubmit = async (values: z.infer<typeof companyDescriptionSchema>) => {
-    console.log(values)
+    await updateCompany({
+      variables: {
+        id: company._id,
+        houseNumber: company.address.houseNumber,
+        streetName: company.address.street,
+        zipCode: company.address.zipCode,
+        name: company.name,
+        token: token,
+        description: values.description,
+      },
+    })
+      .then(() => {
+        toast({
+          title: "Opdateret Beskrivelse",
+          description: "Beskrivelsen for virksomheden er blevet opdateret",
+        })
+        form.reset()
+      })
+      .catch((error: Error) => {
+        toast({
+          variant: "destructive",
+          title: "fejl",
+          description: "kunne ikke opdatere beskrivelsen, prøv igen senere",
+        })
+        console.log(error)
+      })
   }
 
   return (
