@@ -3,7 +3,7 @@ import facade from "@/util/authFacade"
 import { LoginData } from "@/types/usertypes"
 import { AuthContextType } from "@/types/authTypes"
 
-const AuthContext = createContext<AuthContextType | null>(null) // Nullable context
+const AuthContext = createContext<AuthContextType | null>(null)
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   let init = facade.getUser()
@@ -11,6 +11,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = (userData: LoginData) => {
     facade.setToken(userData.token)
+    console.log(userData)
+
     facade.setUser(userData.user)
     setUser(userData.user)
   }
@@ -20,8 +22,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     facade.logout()
   }
 
+  const isAuthenticated = () => {
+    return user !== null
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   )

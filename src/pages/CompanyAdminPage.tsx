@@ -13,7 +13,7 @@ import DescriptionForm from "@/components/DescriptionForm"
 
 const CompanyAdminPage: FC = () => {
   const token = facade.getToken()
-  let user: User | null = null;
+  let user: User | null = null
   const userId = facade.getIdFromToken()
   const { id } = useParams()
 

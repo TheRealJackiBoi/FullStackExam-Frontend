@@ -16,6 +16,8 @@ function facade() {
       const payload = token.split(".")[1]
       const decoded = atob(payload)
       const parsed = JSON.parse(decoded)
+      console.log(parsed.id)
+
       return parsed.id
     }
     return null
