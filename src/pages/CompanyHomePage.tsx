@@ -33,7 +33,6 @@ const CompanyHomePage = () => {
     return <H1 text="Loading Company"></H1>
   }
 
-  //use error
   if (error) {
     return <H1 text="No Company found"></H1>
   }
@@ -93,7 +92,6 @@ function Rendere({ company }: CompanyData) {
             Book tid{" "}
           </Link>
         </div>
-
         <div className="mx-12 my-3">
           <div className="flex space-x-4">
             <div>

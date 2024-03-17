@@ -1,9 +1,13 @@
+import { Company } from "./companyTypes"
+
 // Define your types
 export type User = {
+  _id: string
   firstName: string
   lastName: string
   role: string
   address: Address
+  company?: Company 
 }
 
 export type Address = {

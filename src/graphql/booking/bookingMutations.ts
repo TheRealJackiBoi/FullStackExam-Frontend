@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client"
 
+
 export const CREATE_BOOKING = gql`
   mutation Mutation($startTime: String!, $endTime: String!, $status: Status!, $device: String!, $cost: Float!, $serviceId: ID!, $token: String!) {
     createBooking(startTime: $startTime, endTime: $endTime, status: $status, device: $device, cost: $cost, serviceId: $serviceId, token: $token) {
@@ -20,6 +21,7 @@ export const CREATE_BOOKING = gql`
   }
 `
 
+
 export const UPDATE_BOOKING = gql`
   mutation Mutation($id: ID!, $device: String!, $cost: Float!, $serviceId: ID!, $token: String!, $status: Status) {
     updateBooking(_id: $id, device: $device, cost: $cost, serviceId: $serviceId, token: $token, status: $status) {
@@ -39,6 +41,7 @@ export const UPDATE_BOOKING = gql`
     }
   }
 `
+
 
 export const DELETE_BOOKING = gql`
   mutation Mutation($id: ID!, $token: String!) {

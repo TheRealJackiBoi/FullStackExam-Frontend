@@ -1,14 +1,15 @@
+import { User } from "./usertypes";
 import { Address } from "./addressTypes";
 import { Service } from "./serviceTypes";
 
 export interface Company {
     _id?: string;
     name: string;
+    owner?: User;
+    services?: Service[];
     address: Address;
-    services: Service[];
     description: string;
     //admins?: ObjectId[];
-    //owner?: ObjectId;
     openForBooking: boolean;
     bustle?: Bustle;
   }
