@@ -4,14 +4,7 @@ import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import { useQuery } from "@apollo/client"
 import { Link, useParams } from "react-router-dom"
 import { FaCalendarDay } from "react-icons/fa6"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+
 import { Company } from "@/types/companyTypes"
 import { Service } from "@/types/serviceTypes"
 import ServiceCard from "@/components/ServiceCard"
@@ -19,11 +12,11 @@ import ServiceCard from "@/components/ServiceCard"
 //test route /company/65f2e44f45a53b3aaf8a0b31
 
 interface CompanyData {
-  company: Company; // Define the structure of the data returned by the query
+  company: Company // Define the structure of the data returned by the query
 }
 
 const CompanyHomePage = () => {
-  const { id } = useParams<{  id: string }>()
+  const { id } = useParams<{ id: string }>()
 
   const { data, loading, error } = useQuery<CompanyData>(GET_COMPANY_BY_ID, {
     variables: { id: id },
@@ -37,8 +30,7 @@ const CompanyHomePage = () => {
     return <H1 text="No Company found"></H1>
   }
 
-  const company: Company = data!.company;
-
+  const company: Company = data!.company
 
   return (
     <>
@@ -96,22 +88,11 @@ function Rendere({ company }: CompanyData) {
           <div className="flex space-x-4">
             <div>
               <H2 text="Services"></H2>
-              <TableHead className="font-semibold">Kategorier</TableHead>
-              <Table className=" border-double border-2 ">
-                <TableHeader></TableHeader>
-                <TableBody>
-                  {company.services.map((service: Service) => (
-                    <TableRow key={service._id}>
-                      <TableCell key={service._id}>{service.name}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-            <div className="min-w-fit my-10 flex space-x-3">
-              {company.services.map((service: Service) => (
-                <ServiceCard service={service} />
-              ))}
+              <div className="min-w-fit mt-2 flex space-x-3">
+                {company.services.map((service: Service) => (
+                  <ServiceCard service={service} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
