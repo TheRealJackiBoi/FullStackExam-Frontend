@@ -8,7 +8,8 @@ import {
   RouterProvider,
   createRoutesFromElements,
   Route,
-} from "react-router-dom"
+} from "react-router-dom",
+import CompanyHomePage from "./pages/CompanyHomePage.tsx";
 import { ThemeProvider } from "./components/theme-provider.tsx"
 import Signup from "./pages/Signup"
 import Login from "@/pages/Login.tsx"
@@ -21,7 +22,9 @@ const client = new ApolloClient({
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
+    <Route path="/">
+      <Route index element={<App />} />
+      <Route path="company/:id" element={<CompanyHomePage />}/>
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
     </Route>
