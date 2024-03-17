@@ -10,8 +10,9 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom"
-import { ThemeProvider } from "./components/theme-provider.tsx"
 import CompanyAdminPage from "./pages/CompanyAdminPage.tsx"
+import CompanyHomePage from "./pages/CompanyHomePage.tsx";
+import { ThemeProvider } from "./components/theme-provider.tsx"
 import Signup from "./pages/Signup"
 import Login from "@/pages/Login.tsx"
 import { AuthProvider } from "@/util/AuthContext.tsx"
@@ -30,7 +31,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index element={<H1 text="Hello" />} />
       <Route path="company">
-        <Route path=":id" element={<div>Company ID</div>} />
+        <Route path=":id" element={<CompanyHomePage />} />
         <Route
           path=":id/admin"
           element={

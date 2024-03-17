@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client"
 
-export const getBookingByID = gql`
+
+export const GET_BOOKING_BY_ID = gql`
   query Query($id: ID!, $token: String!) {
     booking(_id: $id, token: $token) {
       _id
@@ -20,7 +21,8 @@ export const getBookingByID = gql`
   }
 `
 
-export const getBookingsByUser = gql`
+
+export const GET_BOOKINGS_BY_USER = gql`
   query Query($id: ID!, $token: String!) {
     bookingsByUser(_id: $id, token: $token) {
       _id
@@ -40,7 +42,8 @@ export const getBookingsByUser = gql`
   }
 `
 
-export const getAllBookings = gql`
+
+export const GET_ALL_BOOKINGS = gql`
   query Query($token: String!) {
     bookings(token: $token) {
       _id

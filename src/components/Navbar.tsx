@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { Button, buttonVariants } from "./ui/button"
 import { Input } from "@/components/ui/input"
 import logo from "@/assets/logo.png"
+import { ModeToggle } from "./ui/mode-toggle";
 import { FaCompass } from "react-icons/fa6"
 import useAuth from "@/util/AuthContext"
 import { ModeToggle } from "./ui/mode-toggle";
@@ -26,7 +27,6 @@ const NavBar = () => {
         placeholder="Søg"
         className=" w-2/5 sm:w-2/5 md:w-2/5 lg:w-1/5 rounded-full "
       />
-      
       <div className="flex gap-2">
         {(user && (
           <Button variant="outline" onClick={logout}>
