@@ -3,7 +3,7 @@ import { Button } from "./ui/button"
 import { DELETE_SERVICE } from "@/graphql/service/serviceMutations"
 import { useToast } from "./ui/use-toast"
 import { Service } from "@/types/serviceTypes"
-import { GET_COMPANY } from "@/graphql/companyQueries"
+import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 
 const DeleteServiceButton = ({
   serviceId,
@@ -13,7 +13,7 @@ const DeleteServiceButton = ({
   token: string
 }) => {
   const [deleteService] = useMutation(DELETE_SERVICE, {
-    refetchQueries: [GET_COMPANY],
+    refetchQueries: [GET_COMPANY_BY_ID],
   })
 
   const { toast } = useToast()
@@ -22,22 +22,26 @@ const DeleteServiceButton = ({
     deleteService({
       variables: { id: serviceId, token: token },
     })
-    .then((service) => {
-      toast({
-        title: "Service slettet",
-        description: `Service ${(service as Service).name}er blevet slettet`,
-      }) 
-    })
-    .catch((error) => {
-      toast({
-        title: "Fejl",
-        description: `Der skete en fejl, prøv igen senere`,
-      }) 
-      console.log(error)
-    })
+      .then((service) => {
+        toast({
+          title: "Service slettet",
+          description: `Service ${(service as Service).name}er blevet slettet`,
+        })
+      })
+      .catch((error) => {
+        toast({
+          title: "Fejl",
+          description: `Der skete en fejl, prøv igen senere`,
+        })
+        console.log(error)
+      })
   }
 
-  return <Button variant={"destructive"} onClick={handleDelete}>Slet</Button>
+  return (
+    <Button variant={"destructive"} onClick={handleDelete}>
+      Slet
+    </Button>
+  )
 }
 
 export default DeleteServiceButton

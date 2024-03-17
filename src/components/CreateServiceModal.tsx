@@ -26,12 +26,18 @@ import { Input } from "./ui/input"
 import { useMutation } from "@apollo/client"
 import { CREATE_SERVICE } from "@/graphql/service/serviceMutations"
 import { useToast } from "./ui/use-toast"
-import { GET_COMPANY } from "@/graphql/companyQueries"
+import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 
-const CreateServiceModal = ({ companyId, token }: { companyId: string, token: string }) => {
+const CreateServiceModal = ({
+  companyId,
+  token,
+}: {
+  companyId: string
+  token: string
+}) => {
   const [createService] = useMutation(CREATE_SERVICE, {
-    refetchQueries: [GET_COMPANY],
-  })  
+    refetchQueries: [GET_COMPANY_BY_ID],
+  })
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof serviceSchema>>({
@@ -44,7 +50,7 @@ const CreateServiceModal = ({ companyId, token }: { companyId: string, token: st
     },
   })
 
-  const onSubmit = async(values: z.infer<typeof serviceSchema>) => {
+  const onSubmit = async (values: z.infer<typeof serviceSchema>) => {
     await createService({
       variables: {
         name: values.name,
@@ -55,21 +61,21 @@ const CreateServiceModal = ({ companyId, token }: { companyId: string, token: st
         token: token,
       },
     })
-    .then(() => {
-      toast({
-        title: "service tilføjet",
-        description: "service er nu tilføjet til virksomheden",
+      .then(() => {
+        toast({
+          title: "service tilføjet",
+          description: "service er nu tilføjet til virksomheden",
+        })
+        form.reset()
       })
-      form.reset()
-    })
-    .catch((error: Error) => {
-      toast({
-        variant: "destructive",
-        title: "fejl",
-        description: "kunne ikke lave service, prøv igen senere",
+      .catch((error: Error) => {
+        toast({
+          variant: "destructive",
+          title: "fejl",
+          description: "kunne ikke lave service, prøv igen senere",
+        })
+        console.log(error)
       })
-      console.log(error)
-    })
   }
 
   return (

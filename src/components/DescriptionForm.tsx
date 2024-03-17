@@ -8,8 +8,8 @@ import { Input } from "./ui/input"
 import { Button } from "./ui/button"
 import { Company } from "@/types/companyTypes"
 import { useMutation } from "@apollo/client"
-import { updateCompanyByID } from "@/graphql/company/companyMutation"
-import { GET_COMPANY } from "@/graphql/companyQueries"
+import { UPDATE_COMPANY_BY_ID } from "@/graphql/company/companyMutation"
+import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import { useToast } from "./ui/use-toast"
 
 const DescriptionForm = ({
@@ -20,8 +20,8 @@ const DescriptionForm = ({
   token: string
 }) => {
   const { toast } = useToast()
-  const [updateCompany] = useMutation(updateCompanyByID, {
-    refetchQueries: [GET_COMPANY],
+  const [updateCompany] = useMutation(UPDATE_COMPANY_BY_ID, {
+    refetchQueries: [GET_COMPANY_BY_ID],
   })
 
   const form = useForm<z.infer<typeof companyDescriptionSchema>>({
@@ -48,7 +48,6 @@ const DescriptionForm = ({
           title: "Opdateret Beskrivelse",
           description: "Beskrivelsen for virksomheden er blevet opdateret",
         })
-        form.reset()
       })
       .catch((error: Error) => {
         toast({

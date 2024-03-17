@@ -2,10 +2,9 @@ import { Link } from "react-router-dom"
 import { Button, buttonVariants } from "./ui/button"
 import { Input } from "@/components/ui/input"
 import logo from "@/assets/logo.png"
-import { ModeToggle } from "./ui/mode-toggle";
+import { ModeToggle } from "./ui/mode-toggle"
 import { FaCompass } from "react-icons/fa6"
 import useAuth from "@/util/AuthContext"
-import { ModeToggle } from "./ui/mode-toggle";
 
 const NavBar = () => {
   const { user, logout } = useAuth()
@@ -17,8 +16,8 @@ const NavBar = () => {
           <img src={logo} alt="logo" className="h-10 w-10 invert" />
         </Link>
         <Button variant="outline" size="icon">
-          <FaCompass />  
-        </Button> 
+          <FaCompass />
+        </Button>
         <ModeToggle />
       </div>
 
