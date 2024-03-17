@@ -8,7 +8,7 @@ import {
   RouterProvider,
   createRoutesFromElements,
   Route,
-} from "react-router-dom",
+} from "react-router-dom"
 import CompanyHomePage from "./pages/CompanyHomePage.tsx";
 import { ThemeProvider } from "./components/theme-provider.tsx"
 import Signup from "./pages/Signup"

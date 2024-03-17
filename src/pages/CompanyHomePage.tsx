@@ -13,13 +13,19 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Company } from "@/types/companyTypes"
+import { Service } from "@/types/serviceTypes"
+import ServiceCard from "@/components/ServiceCard"
 
 //test route /company/65f2e44f45a53b3aaf8a0b31
 
-const CompanyHomePage = () => {
-  const { id } = useParams()
+interface CompanyData {
+  company: Company; // Define the structure of the data returned by the query
+}
 
-  const { data, loading } = useQuery<Company>(GET_COMPANY_BY_ID, {
+const CompanyHomePage = () => {
+  const { id } = useParams<{  id: string }>()
+
+  const { data, loading, error } = useQuery<CompanyData>(GET_COMPANY_BY_ID, {
     variables: { id: id },
   })
 
@@ -27,20 +33,22 @@ const CompanyHomePage = () => {
     return <H1 text="Loading Company"></H1>
   }
 
-  if (!data) {
+  //use error
+  if (error) {
     return <H1 text="No Company found"></H1>
   }
 
+  const company: Company = data!.company;
+
+
   return (
     <>
-      <div>
-        <Rendere specificCompany={data} />
-      </div>
+      <Rendere company={company} />
     </>
   )
 }
 
-function Rendere({ specificCompany: data }: Company) {
+function Rendere({ company }: CompanyData) {
   return (
     <>
       <div>
@@ -49,13 +57,13 @@ function Rendere({ specificCompany: data }: Company) {
             <div className="flex-1 bg-gray-200"></div>
             <div className="relative">
               <div className="absolute bottom-0 left-0 mx-12 my-4">
-                <H1 text={data?.company.name}></H1>
+                <H1 text={company.name}></H1>
               </div>
             </div>
           </div>
           <div className="flex justify-between mx-12 my-2">
             <div>
-              {data.company.openForBooking ? (
+              {company.openForBooking ? (
                 <P text={"Open"} />
               ) : (
                 <P text="Closed" />
@@ -64,11 +72,11 @@ function Rendere({ specificCompany: data }: Company) {
             <div>
               <P
                 text={
-                  data?.company.address.street +
+                  company.address.street +
                   " " +
-                  data?.company.address.houseNumber +
+                  company.address.houseNumber +
                   ", " +
-                  data?.company.address.zipCode
+                  company.address.zipCode
                 }
               ></P>
             </div>
@@ -76,11 +84,11 @@ function Rendere({ specificCompany: data }: Company) {
           <hr className="border-t-2 border-gray-300 mt-2" />
         </div>
         <div className="mx-12 my-2">
-          <P text={data?.company.description}></P>
+          <P text={company.description}></P>
         </div>
 
         <div className="mx-12 my-2">
-          <Link className={buttonVariants()}>
+          <Link className={buttonVariants()} to={"company/:id/booking"}>
             <FaCalendarDay />
             Book tid{" "}
           </Link>
@@ -94,16 +102,18 @@ function Rendere({ specificCompany: data }: Company) {
               <Table className=" border-double border-2 ">
                 <TableHeader></TableHeader>
                 <TableBody>
-                  {data.company.services.map((service) => (
-                    <TableRow key={service.id}>
-                      <TableCell key={service.id}>{service.name}</TableCell>
+                  {company.services.map((service: Service) => (
+                    <TableRow key={service._id}>
+                      <TableCell key={service._id}>{service.name}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </div>
-            <div className="min-w-fit my-10">
-              <H2 text="JACKS COMPONENT PLACEHOLDER"></H2>
+            <div className="min-w-fit my-10 flex space-x-3">
+              {company.services.map((service: Service) => (
+                <ServiceCard service={service} />
+              ))}
             </div>
           </div>
         </div>
