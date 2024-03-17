@@ -88,7 +88,7 @@ function Rendere({ company }: CompanyData) {
         </div>
 
         <div className="mx-12 my-2">
-          <Link className={buttonVariants()} to={"/"}>
+          <Link className={buttonVariants()} to={"company/:id/booking"}>
             <FaCalendarDay />
             Book tid{" "}
           </Link>
