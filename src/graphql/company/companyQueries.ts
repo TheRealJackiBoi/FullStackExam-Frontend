@@ -26,6 +26,9 @@ export const GET_COMPANY_BY_ID = gql`
         firstName
         lastName
         role
+        company {
+          _id
+        }
       }
     }
   }

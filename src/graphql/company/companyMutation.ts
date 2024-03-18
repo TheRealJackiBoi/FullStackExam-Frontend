@@ -86,7 +86,7 @@ export const CREATE_COMPANY_ADMIN = gql`
   }
 `
 export const DELETE_COMPANY_ADMIN = gql`
-  mutation DeleteCompanyAdmin($userId: ID!, $companyId: ID!, $token: String!) {
+  mutation deleteCompanyAdmin($userId: ID!, $companyId: ID!, $token: String!) {
     deleteCompanyAdmin(userId: $userId, companyId: $companyId, token: $token) {
       _id
       firstName

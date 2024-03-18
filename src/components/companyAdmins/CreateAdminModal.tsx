@@ -26,7 +26,6 @@ import { CREATE_COMPANY_ADMIN } from "@/graphql/company/companyMutation"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import { Input } from "../ui/input"
 import { useToast } from "../ui/use-toast"
-import { error } from "console"
 
 const CreateAdminModal = ({
   companyId,
