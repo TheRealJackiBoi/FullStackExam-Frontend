@@ -60,7 +60,9 @@ export const CompanyBookingPage = () => {
 
 function BookingRender({ company }: CompanyData) {
   const [date, setDate] = useState<Date | undefined>(new Date())
-  const [service, setService] = useState("")
+  const [selectedService, setSelectedService] = useState<Service | undefined>(
+    undefined
+  )
 
   const forminput = useForm({
     resolver: zodResolver(bookingSchema),
@@ -97,11 +99,13 @@ function BookingRender({ company }: CompanyData) {
           </CardContent>
         </Card>
         <Card className="p-4 flex justify-center items-center">
-          <CardContent >
+          <CardContent>
             <div className="w-full md:w-72 ">
               <Form {...forminput}>
-                <form onSubmit={forminput.handleSubmit(onSubmit)}
-                className="flex flex-col">
+                <form
+                  onSubmit={forminput.handleSubmit(onSubmit)}
+                  className="flex flex-col"
+                >
                   <FormField
                     control={forminput.control}
                     name="enhed"
@@ -115,22 +119,33 @@ function BookingRender({ company }: CompanyData) {
                       </FormItem>
                     )}
                   />
-                  
+
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline">vælg service</Button>
+                      {selectedService ? (
+                        <Button variant="outline">
+                          {selectedService.name}
+                        </Button>
+                      ) : (
+                        <Button variant="outline">vælg service</Button>
+                      )}
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-full md:w-72">
                       <DropdownMenuLabel>services</DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuRadioGroup
-                        value={service}
-                        onValueChange={setService}
+                        value={
+                          selectedService ? JSON.stringify(selectedService) : ""
+                        }
+                        onValueChange={(value: string) => {
+                          const parsedService = JSON.parse(value) as Service
+                          setSelectedService(parsedService)
+                        }}
                       >
                         {company.services?.map((service: Service) => (
                           <DropdownMenuRadioItem
                             key={service._id}
-                            value={service._id!}
+                            value={JSON.stringify(service)}
                           >
                             {service.name}
                           </DropdownMenuRadioItem>
@@ -138,8 +153,16 @@ function BookingRender({ company }: CompanyData) {
                       </DropdownMenuRadioGroup>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                    
-                  <div className="text-center scale-125">
+
+                  {selectedService?.estimatedPrice ? (
+                    <div className="text-center mt-4">
+                      <H3 text={selectedService?.estimatedPrice + " kr."}></H3>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+
+                  <div className="text-center">
                     <Button
                       type="submit"
                       className=" bg-blue-500 text-white hover:bg-blue-300 my-5"
