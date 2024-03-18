@@ -66,7 +66,7 @@ function BookingRender({ company }: CompanyData) {
     undefined
   )
 
-  const forminput = useForm({
+  const form = useForm({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       enhed: "",
@@ -84,8 +84,17 @@ function BookingRender({ company }: CompanyData) {
         description: "Vælg venligst en service",
       })
     }
+
+    //end time tid skal sætte til : start tid + estimatedTime på service
+
+    console.log(values)
     //})
   }
+
+  // get service
+  // sæt start tiden
+  // side om side på stor skærm
+  // padding 
 
   return (
     <>
@@ -100,16 +109,16 @@ function BookingRender({ company }: CompanyData) {
       <div className="m-4 flex justify-center">
         <H1 text={"Book en service hos " + company.name}></H1>
       </div>
-      <div className="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-10">
-        <Form {...forminput}>
+      <div className="flex justify-center ">
+        <Form {...form}>
           <form
-            onSubmit={forminput.handleSubmit(onSubmit)}
-            className="flex flex-col "
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex  "
           >
             <Card className="p-4">
               <CardContent>
                 <FormField
-                  control={forminput.control}
+                  control={form.control}
                   name="date"
                   render={({ field }) => (
                     <div className="text-center">
@@ -118,11 +127,8 @@ function BookingRender({ company }: CompanyData) {
                         <FormControl>
                           <Calendar
                             mode="single"
-                            selected={date}
-                            onSelect={(newDate) => {
-                              setDate(newDate)
-                              forminput.setValue('date', newDate);
-                            }}
+                            selected={field.value}
+                            onSelect={field.onChange}
                           />
                         </FormControl>
                       </FormItem>
@@ -132,11 +138,11 @@ function BookingRender({ company }: CompanyData) {
                 />
               </CardContent>
             </Card>
-            <Card className="p-4 flex justify-center items-center">
+            <Card className="p-6 flex justify-center items-center">
               <CardContent>
                 <div className="w-full md:w-72 ">
                   <FormField
-                    control={forminput.control}
+                    control={form.control}
                     name="enhed"
                     render={({ field }) => (
                       <FormItem className="flex flex-col mb-4">
@@ -148,7 +154,7 @@ function BookingRender({ company }: CompanyData) {
                       </FormItem>
                     )}
                   />
-
+                  <div className="flex justify-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       {selectedService ? (
@@ -182,6 +188,7 @@ function BookingRender({ company }: CompanyData) {
                       </DropdownMenuRadioGroup>
                     </DropdownMenuContent>
                   </DropdownMenu>
+                  </div>
 
                   {selectedService?.estimatedPrice ? (
                     <div className="text-center mt-4">
