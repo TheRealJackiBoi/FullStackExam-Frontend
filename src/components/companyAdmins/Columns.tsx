@@ -60,7 +60,7 @@ export const columns: ColumnDef<User>[] = [
       }
 
       return (
-        <div>
+        <div className="flex justify-end">
           <Button variant={"destructive"} onClick={handleDelete}>Slet</Button>
         </div>
       )
