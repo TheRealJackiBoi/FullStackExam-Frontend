@@ -109,13 +109,13 @@ function BookingRender({ company }: CompanyData) {
       <div className="m-4 flex justify-center">
         <H1 text={"Book en service hos " + company.name}></H1>
       </div>
-      <div className="flex justify-center ">
+      <div className="flex justify-center p-6 ">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex  "
           >
-            <Card className="p-4">
+            <Card className="p-4 mr-4">
               <CardContent>
                 <FormField
                   control={form.control}
@@ -138,7 +138,7 @@ function BookingRender({ company }: CompanyData) {
                 />
               </CardContent>
             </Card>
-            <Card className="p-6 flex justify-center items-center">
+            <Card className="p-6 flex justify-center items-center ml-4">
               <CardContent>
                 <div className="w-full md:w-72 ">
                   <FormField
