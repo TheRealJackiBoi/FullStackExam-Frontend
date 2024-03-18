@@ -17,8 +17,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Service } from "@/types/serviceTypes"
 
 interface CompanyData {
   company: Company
@@ -50,6 +60,7 @@ export const CompanyBookingPage = () => {
 
 function BookingRender({ company }: CompanyData) {
   const [date, setDate] = useState<Date | undefined>(new Date())
+  const [service, setService] = useState("")
 
   const forminput = useForm({
     resolver: zodResolver(bookingSchema),
@@ -85,16 +96,17 @@ function BookingRender({ company }: CompanyData) {
             </div>
           </CardContent>
         </Card>
-        <Card className="p-4">
-          <CardContent>
-            <div className="w-full md:w-72 col">
+        <Card className="p-4 flex justify-center items-center">
+          <CardContent >
+            <div className="w-full md:w-72 ">
               <Form {...forminput}>
-                <form onSubmit={forminput.handleSubmit(onSubmit)}>
+                <form onSubmit={forminput.handleSubmit(onSubmit)}
+                className="flex flex-col">
                   <FormField
                     control={forminput.control}
                     name="enhed"
                     render={({ field }) => (
-                      <FormItem className="flex items-center mb-4">
+                      <FormItem className="flex flex-col mb-4">
                         <FormLabel className="mr-2">Enhed</FormLabel>
                         <FormControl>
                           <Input {...field} />
@@ -103,23 +115,34 @@ function BookingRender({ company }: CompanyData) {
                       </FormItem>
                     )}
                   />
-                  <FormField 
-                    name="service"
-                    render={({ field }) => (
-                        <FormItem className="">
-                            <FormLabel className="mr-2">Service</FormLabel>
-                            <FormControl>
-                                <Input {...field } />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                  />
+                  
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline">vælg service</Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-full md:w-72">
+                      <DropdownMenuLabel>services</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuRadioGroup
+                        value={service}
+                        onValueChange={setService}
+                      >
+                        {company.services?.map((service: Service) => (
+                          <DropdownMenuRadioItem
+                            key={service._id}
+                            value={service._id!}
+                          >
+                            {service.name}
+                          </DropdownMenuRadioItem>
+                        ))}
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                     
                   <div className="text-center scale-125">
                     <Button
                       type="submit"
-                      className=" bg-blue-500 text-white hover:bg-blue-300"
+                      className=" bg-blue-500 text-white hover:bg-blue-300 my-5"
                     >
                       Bestil
                     </Button>
