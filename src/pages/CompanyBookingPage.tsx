@@ -1,4 +1,4 @@
-import { H1, H3, P } from "@/components/Typography"
+import { H1, H3 } from "@/components/Typography"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import { Company } from "@/types/companyTypes"
 import { useQuery } from "@apollo/client"
