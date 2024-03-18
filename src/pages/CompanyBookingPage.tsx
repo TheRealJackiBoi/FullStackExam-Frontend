@@ -61,7 +61,7 @@ export const CompanyBookingPage = () => {
 
 function BookingRender({ company }: CompanyData) {
   const { toast } = useToast()
-  const [date, setDate] = useState<Date | undefined>(undefined)
+  const [date, setDate] = useState<Date | undefined>(new Date())
   const [selectedService, setSelectedService] = useState<Service | undefined>(
     undefined
   )
@@ -70,23 +70,18 @@ function BookingRender({ company }: CompanyData) {
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       enhed: "",
+      date: undefined,
     },
   })
 
   async function onSubmit(values: z.infer<typeof bookingSchema>) {
     //await postBooking({variables: values}).then((res) => {
-    
-    if(selectedService === undefined){
+
+    if (selectedService === undefined) {
       toast({
         variant: "destructive",
         title: "vælg service",
         description: "Vælg venligst en service",
-      }) 
-    } else if(date === undefined){
-      toast({
-        variant: "destructive",
-        title: "Vælg dato",
-        description: "Vælg indleveringsdato",
       })
     }
     //})
@@ -106,22 +101,40 @@ function BookingRender({ company }: CompanyData) {
         <H1 text={"Book en service hos " + company.name}></H1>
       </div>
       <div className="flex flex-col md:flex-row justify-center space-y-6 md:space-y-0 md:space-x-10">
-        <Card className="p-4">
-          <CardContent>
-            <div className="text-center">
-              <H3 text="Vælg indleveringsdato"></H3>
-              <Calendar mode="single" selected={date} onSelect={setDate} />
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="p-4 flex justify-center items-center">
-          <CardContent>
-            <div className="w-full md:w-72 ">
-              <Form {...forminput}>
-                <form
-                  onSubmit={forminput.handleSubmit(onSubmit)}
-                  className="flex flex-col"
-                >
+        <Form {...forminput}>
+          <form
+            onSubmit={forminput.handleSubmit(onSubmit)}
+            className="flex flex-col "
+          >
+            <Card className="p-4">
+              <CardContent>
+                <FormField
+                  control={forminput.control}
+                  name="date"
+                  render={({ field }) => (
+                    <div className="text-center">
+                      <FormItem>
+                        <FormLabel> Vælg indleveringsdato</FormLabel>
+                        <FormControl>
+                          <Calendar
+                            mode="single"
+                            selected={date}
+                            onSelect={(newDate) => {
+                              setDate(newDate)
+                              forminput.setValue('date', newDate);
+                            }}
+                          />
+                        </FormControl>
+                      </FormItem>
+                      <FormMessage />
+                    </div>
+                  )}
+                />
+              </CardContent>
+            </Card>
+            <Card className="p-4 flex justify-center items-center">
+              <CardContent>
+                <div className="w-full md:w-72 ">
                   <FormField
                     control={forminput.control}
                     name="enhed"
@@ -186,11 +199,11 @@ function BookingRender({ company }: CompanyData) {
                       Bestil
                     </Button>
                   </div>
-                </form>
-              </Form>
-            </div>
-          </CardContent>
-        </Card>
+                </div>
+              </CardContent>
+            </Card>
+          </form>
+        </Form>
       </div>
     </>
   )
