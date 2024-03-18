@@ -71,8 +71,8 @@ const CreateServiceModal = ({
       .catch((error: Error) => {
         toast({
           variant: "destructive",
-          title: "fejl",
-          description: "kunne ikke lave service, prøv igen senere",
+          title: "Fejl",
+          description: "Kunne ikke lave servicen, prøv igen senere",
         })
         console.log(error)
       })

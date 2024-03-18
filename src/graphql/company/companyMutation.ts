@@ -70,32 +70,18 @@ export const REMOVE_COMPANY_ADMIN = gql`
 `
 
 export const CREATE_COMPANY_ADMIN = gql`
-  query Query($id: ID!) {
-    company(_id: $id) {
+  mutation Mutation($firstName: String!, $lastName: String!, $email: String!, $password: String!, $role: Role!, $zipCode: Int!, $street: String!, $houseNumber: Int!, $companyId: ID!, $token: String!) {
+    createCompanyAdmin(firstName: $firstName, lastName: $lastName, email: $email, password: $password, role: $role, zipCode: $zipCode, street: $street, houseNumber: $houseNumber, companyId: $companyId, token: $token) {
       _id
-      name
-      description
-      openForBooking
-      bustle
-      services {
-        estimatedPrice
-        estimatedTime
-        imageUrl
-        name
-        _id
-      }
       address {
-        _id
-        zipCode
         street
-        houseNumber
-      }
-      admins {
         _id
-        firstName
-        lastName
-        role
+        houseNumber
+        zipCode
       }
+      firstName
+      lastName
+      role
     }
   }
 `

@@ -8,7 +8,7 @@ import CompanyAdminServiceTable from "@/components/CompanyAdminServiceTable"
 import facade from "@/util/authFacade"
 import DescriptionForm from "@/components/DescriptionForm"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
-import CompanyAdminTable from "@/components/CompanyAdmins/CompanyAdminTable"
+import CompanyAdminTable from "@/components/companyAdmins/CompanyAdminTable"
 
 const CompanyAdminPage: FC = () => {
   const token = facade.getToken()
