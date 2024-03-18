@@ -9,7 +9,7 @@ export interface Company {
     services?: Service[];
     address: Address;
     description: string;
-    //admins?: ObjectId[];
+    admins?: User[];
     openForBooking: boolean;
     bustle?: Bustle;
   }

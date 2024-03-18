@@ -8,6 +8,7 @@ import CompanyAdminServiceTable from "@/components/CompanyAdminServiceTable"
 import facade from "@/util/authFacade"
 import DescriptionForm from "@/components/DescriptionForm"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
+import CompanyAdminTable from "@/components/CompanyAdmins/CompanyAdminTable"
 
 const CompanyAdminPage: FC = () => {
   const token = facade.getToken()
@@ -46,6 +47,7 @@ const CompanyAdminPage: FC = () => {
       <H1 text={company!.name} className=" my-4 " />
       <DescriptionForm company={company} token={token} />
       <CompanyAdminServiceTable company={company} token={token} />
+      <CompanyAdminTable company={company} token={token} />
     </>
   )
 }

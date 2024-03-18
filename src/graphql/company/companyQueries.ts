@@ -21,6 +21,12 @@ export const GET_COMPANY_BY_ID = gql`
         street
         houseNumber
       }
+      admins {
+        _id
+        firstName
+        lastName
+        role
+      }
     }
   }
 `
