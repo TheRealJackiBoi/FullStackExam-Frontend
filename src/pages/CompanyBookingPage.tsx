@@ -29,6 +29,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Service } from "@/types/serviceTypes"
+import { useToast } from "@/components/ui/use-toast"
 
 interface CompanyData {
   company: Company
@@ -59,6 +60,7 @@ export const CompanyBookingPage = () => {
 }
 
 function BookingRender({ company }: CompanyData) {
+  const { toast } = useToast()
   const [date, setDate] = useState<Date | undefined>(new Date())
   const [selectedService, setSelectedService] = useState<Service | undefined>(
     undefined
@@ -73,6 +75,14 @@ function BookingRender({ company }: CompanyData) {
 
   async function onSubmit(values: z.infer<typeof bookingSchema>) {
     //await postBooking({variables: values}).then((res) => {
+    
+    if(selectedService === undefined){
+      toast({
+        variant: "destructive",
+        title: "vælg service",
+        description: "Vælg venligst en service",
+      })
+    }
     //})
   }
 
