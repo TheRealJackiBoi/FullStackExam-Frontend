@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form"
 import { Button } from "../ui/button"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -202,13 +203,15 @@ const CreateAdminModal = ({
               )}
             />
             <DialogFooter>
-              <Button
-                type="submit"
-                variant={"secondary"}
-                className="mt-2 bg-blue-500 text-white hover:bg-blue-300"
-              >
-                Tilføj
-              </Button>
+              <DialogClose asChild>
+                <Button
+                  type="submit"
+                  variant={"secondary"}
+                  className="mt-2 bg-blue-500 text-white hover:bg-blue-300"
+                >
+                  Tilføj
+                </Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </Form>

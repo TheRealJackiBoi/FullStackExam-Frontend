@@ -163,6 +163,7 @@ const CreateServiceModal = ({
               )}
             />
             <DialogFooter>
+              <DialogClose asChild>
               <Button
                 type="submit"
                 variant={"secondary"}
@@ -170,6 +171,7 @@ const CreateServiceModal = ({
               >
                 Tilføj
               </Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </Form>
