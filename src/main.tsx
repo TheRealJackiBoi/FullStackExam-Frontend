@@ -16,11 +16,12 @@ import { ThemeProvider } from "./components/theme-provider.tsx"
 import Signup from "./pages/Signup"
 import Login from "@/pages/Login.tsx"
 import { AuthProvider } from "@/util/AuthContext.tsx"
-import { H1 } from "./components/Typography.tsx"
 import { ProtectedRoute } from "@/util/ProtectedRoutes.tsx" // Import ProtectedRouteProps
 import { User } from "@/types/usertypes.ts" // Import User and ParamsType types
 import { RouteParams } from "@/types/router.ts" // Import RouteParams type
 import { CompanyBookingPage } from "./pages/CompanyBookingPage.tsx"
+import Index from "./pages/Index.tsx"
+
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -30,7 +31,7 @@ const client = new ApolloClient({
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index element={<H1 text="Hello" />} />
+      <Route index element={<Index />} />
       <Route path="company">
         <Route path=":id" element={<CompanyHomePage />} />
         <Route path=":id/booking" element={<CompanyBookingPage />} />
