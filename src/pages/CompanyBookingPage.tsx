@@ -1,4 +1,4 @@
-import { H1, H3 } from "@/components/Typography"
+import { H1, H3, P } from "@/components/Typography"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import { Company } from "@/types/companyTypes"
 import { useQuery } from "@apollo/client"
@@ -61,7 +61,7 @@ export const CompanyBookingPage = () => {
 
 function BookingRender({ company }: CompanyData) {
   const { toast } = useToast()
-  const [date, setDate] = useState<Date | undefined>(new Date())
+  const [date, setDate] = useState<Date | undefined>(undefined)
   const [selectedService, setSelectedService] = useState<Service | undefined>(
     undefined
   )
@@ -81,6 +81,12 @@ function BookingRender({ company }: CompanyData) {
         variant: "destructive",
         title: "vælg service",
         description: "Vælg venligst en service",
+      }) 
+    } else if(date === undefined){
+      toast({
+        variant: "destructive",
+        title: "Vælg dato",
+        description: "Vælg indleveringsdato",
       })
     }
     //})
