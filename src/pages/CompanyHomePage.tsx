@@ -89,7 +89,7 @@ function Rendere({ company }: CompanyData) {
             <div>
               <H2 text="Services"></H2>
               <div className="min-w-fit mt-2 flex space-x-3">
-                {company.services.map((service: Service) => (
+                {company.services!.map((service: Service) => (
                   <ServiceCard service={service} />
                 ))}
               </div>

@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
-import { ThemeProvider, useTheme } from "./theme-provider"
 
 const NavBar = () => {
   const { user, logout } = useAuth()
