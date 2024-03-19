@@ -2,6 +2,7 @@ import { User } from "./usertypes";
 import { Address } from "./addressTypes";
 import { Service } from "./serviceTypes";
 import { Booking } from "./bookingTypes";
+import { CategoryEnum } from "./categoryEnum"
 
 export interface Company {
     _id?: string;
@@ -14,10 +15,11 @@ export interface Company {
     openForBooking: boolean;
     bustle?: Bustle;
     bookings?: Booking[];
+    categories: CategoryEnum[];
   }
 
-  export enum Bustle {
-    LOW = "LOW",
-    MEDIUM = "MEDIUM",
-    HIGH = "HIGH"
-  }
+export enum Bustle {
+  LOW = "LOW",
+  MEDIUM = "MEDIUM",
+  HIGH = "HIGH",
+}
