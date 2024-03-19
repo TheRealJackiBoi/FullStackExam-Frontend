@@ -63,13 +63,12 @@ export const CompanyBookingPage = () => {
 }
 
 function BookingRender({ company }: CompanyData) {
-  
   const { toast } = useToast()
   const [selectedService, setSelectedService] = useState<Service | undefined>(
     undefined
   )
 
-  const [ createBooking ] = useMutation(CREATE_BOOKING)
+  const [createBooking] = useMutation(CREATE_BOOKING)
 
   const form = useForm({
     resolver: zodResolver(bookingSchema),
@@ -90,7 +89,7 @@ function BookingRender({ company }: CompanyData) {
       })
       return
     }
-    
+
     //end time tid skal sætte til : start tid + estimatedTime på service
     const estimatedTimeInMilliseconds = selectedService?.estimatedTime ?? 0
     // Convert date to milliseconds
@@ -118,20 +117,22 @@ function BookingRender({ company }: CompanyData) {
         userId: facade.getIdFromToken(),
         token: facade.getToken(),
       },
-    }).then(() => {
-      toast({
-        title: "Service booket",
-        description: `${selectedService.name} er nu booket for ${values.enhed}: ${values.model}`,
-      })
-      form.reset()
-    }).catch((error: Error) => {
-      toast({
-        variant: "destructive",
-        title: "Fejl",
-        description: `Kunne ikke oprette booking med ${selectedService.name} for ${values.enhed}, prøv igen senere`,
-      })
-      console.log(error)
     })
+      .then(() => {
+        toast({
+          title: "Service booket",
+          description: `${selectedService.name} er nu booket for ${values.enhed}: ${values.model}`,
+        })
+        form.reset()
+      })
+      .catch((error: Error) => {
+        toast({
+          variant: "destructive",
+          title: "Fejl",
+          description: `Kunne ikke oprette booking med ${selectedService.name} for ${values.enhed}, prøv igen senere`,
+        })
+        console.log(error)
+      })
   }
 
   return (
@@ -149,7 +150,10 @@ function BookingRender({ company }: CompanyData) {
       </div>
       <div className="flex justify-center p-6">
         <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-wrap justify-center">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-wrap justify-center"
+          >
             <Card className="p-4 lg:mr-4">
               <CardContent>
                 <FormField
@@ -255,7 +259,13 @@ function BookingRender({ company }: CompanyData) {
 
                   {selectedService?.estimatedPrice ? (
                     <div className="text-center mt-4">
-                      <H3 text={"Estimeret pris: " + selectedService?.estimatedPrice + "  kr."}></H3>
+                      <H3
+                        text={
+                          "Estimeret pris: " +
+                          selectedService?.estimatedPrice +
+                          "  kr."
+                        }
+                      ></H3>
                     </div>
                   ) : (
                     ""
