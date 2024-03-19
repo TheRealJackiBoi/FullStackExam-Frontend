@@ -1,21 +1,26 @@
 import { Link } from "react-router-dom"
 import { Button, buttonVariants } from "./ui/button"
 import { Input } from "@/components/ui/input"
-import logo from "@/assets/logo.png"
+import logo from "@/assets/logo.svg"
 import { ModeToggle } from "./ui/mode-toggle"
 import { FaCompass } from "react-icons/fa6"
 import useAuth from "@/util/AuthContext"
 import { useNavigate } from "react-router-dom"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 const NavBar = () => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
 
+
   return (
     <nav className=" w-screen flex p-2 justify-between">
       <div className="flex justify-between gap-2">
         <Link to="/">
-          <img src={logo} alt="logo" className="h-10 w-10 invert" />
+          <Avatar>
+            <AvatarImage src={logo} className="h-10 w-10 scale-150 dark:invert" />
+            <AvatarFallback>LOGO</AvatarFallback>
+          </Avatar>
         </Link>
         <Button variant="outline" size="icon">
           <FaCompass />

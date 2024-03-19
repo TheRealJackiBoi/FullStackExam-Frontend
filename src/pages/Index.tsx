@@ -32,10 +32,10 @@ function Index() {
       <H1 text="Kategorier" />
       <CategoryCards />
       <H1 text="I nærheden" />
-      <div className="flex flex-wrap gap-4 mt-10">
+      <div className="flex flex-wrap mb-5 md:justify-start justify-center gap-2 mt-10">
         {companies.map((company) => (
           <Link
-            className="w-3/12"
+            className="w-full sm:w-6/12 md:w-3/12 sm:w-4/12"
             to={`/company/${company._id}`}
             key={company._id}
           >

@@ -39,7 +39,7 @@ function Search() {
       <div className="flex flex-wrap gap-4 mt-10">
         {companies.map((company) => (
           <Link
-            className="w-1/10"
+            className="w-full sm:w-6/12 md:w-3/12 sm:w-4/12"
             to={`/company/${company._id}`}
             key={company._id}
           >

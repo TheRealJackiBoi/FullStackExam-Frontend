@@ -4,9 +4,9 @@ import { User } from "./usertypes";
 
 
 export interface Booking {
-  __id: string;
-  startTime: Date;
-  endTime: Date;
+  _id: string;
+  startTime: string;
+  endTime: string;
   status: Status;
   case: Case;
   company?: Company;
