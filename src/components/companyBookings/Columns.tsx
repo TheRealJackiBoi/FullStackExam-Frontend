@@ -9,6 +9,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
+import { useToast } from "../ui/use-toast"
+import { useMutation } from "@apollo/client"
+import { DELETE_BOOKING } from "@/graphql/booking/bookingMutations"
+import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
+import facade from "@/util/authFacade"
 
 export const columns: ColumnDef<Booking>[] = [
   {
@@ -58,7 +63,7 @@ export const columns: ColumnDef<Booking>[] = [
       return (
         <Select>
           <SelectTrigger>
-            <SelectValue defaultValue={status} placeholder="Vælg status" />
+            <SelectValue placeholder="Vælg status" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -74,9 +79,39 @@ export const columns: ColumnDef<Booking>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
+      const booking: Booking = row.original
+
+      const { toast } = useToast()
+
+      const [deleteBooking] = useMutation(DELETE_BOOKING, {
+        refetchQueries: [GET_COMPANY_BY_ID],
+      })
+
+      const handleDelete = async () => {
+        await deleteBooking({
+          variables: {
+            id: booking._id,
+            token: facade.getToken(),
+          },
+        })
+          .then(() => {
+            toast({
+              title: "Booking slettet",
+              description: `Bookingen er blevet slettet`,
+            })
+          })
+          .catch((err: Error) => {
+            toast({
+              title: "Fejl",
+              description: "Der skete en fejl under sletning af bookingen",
+            })
+            console.log(err)
+          })
+      }
+
       return (
         <div className="flex justify-end">
-          <Button variant={"destructive"}>Slet</Button>
+          <Button variant={"destructive"} onClick={handleDelete} >Slet</Button>
         </div>
       )
     },

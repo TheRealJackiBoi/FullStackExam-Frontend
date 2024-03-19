@@ -36,7 +36,6 @@ export const columns: ColumnDef<User>[] = [
       })
 
       const handleDelete = async() => {
-        console.log(user)
         await deleteCompanyAdmin({
           variables: {
             userId: user._id,
