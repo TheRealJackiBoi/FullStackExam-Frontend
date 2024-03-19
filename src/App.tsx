@@ -1,11 +1,11 @@
-import { Button } from './components/ui/button'
+import MainLayout from "./pages/MainLayout"
+import { Outlet } from "react-router-dom"
 
 function App() {
-
   return (
-    <>
-      <Button>Click me</Button>
-    </>
+    <MainLayout>
+      <Outlet />
+    </MainLayout>
   )
 }
 
