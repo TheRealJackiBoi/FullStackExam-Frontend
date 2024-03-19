@@ -7,6 +7,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
 import { bookingSchema } from "@/schema/booking"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -61,7 +62,6 @@ export const CompanyBookingPage = () => {
 
 function BookingRender({ company }: CompanyData) {
   const { toast } = useToast()
-  const [date, setDate] = useState<Date | undefined>(new Date())
   const [selectedService, setSelectedService] = useState<Service | undefined>(
     undefined
   )
