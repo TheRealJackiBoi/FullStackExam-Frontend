@@ -1,14 +1,25 @@
-export function H1({ text, className }: { text: string, className?: string}) {
+export function H1({ text, className }: { text: string; className?: string }) {
   return (
-    <h1 className={"scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl" + className}>
+    <h1
+      className={
+        "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl" +
+        className
+      }
+    >
       {text}
     </h1>
   )
 }
 
-export function H2({ text, className }: { text: string, className?: string}) {
+export function H2({ text, className }: { text: string; className?: string }) {
   return (
-    <h2 className={"scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0" + className}>
+    <h2
+      className={
+        "scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0" +
+        " " +
+        className
+      }
+    >
       {text}
     </h2>
   )
@@ -26,8 +37,10 @@ export function H4({ text }: { text: string }) {
   )
 }
 
-export function P({ text, className }: { text: string, className?: string }) {
-  return <p className={"leading-7 [&:not(:first-child)]:mt-6" + className}>{text}</p>
+export function P({ text, className }: { text: string; className?: string }) {
+  return (
+    <p className={"leading-7 [&:not(:first-child)]:mt-6" + className}>{text}</p>
+  )
 }
 
 export function BlockQuote({ text }: { text: string }) {
