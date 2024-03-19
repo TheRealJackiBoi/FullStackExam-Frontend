@@ -27,7 +27,7 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const user = row.original
+      const user: User = row.original
 
       const { toast } = useToast()
 

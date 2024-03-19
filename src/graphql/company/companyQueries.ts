@@ -30,6 +30,34 @@ export const GET_COMPANY_BY_ID = gql`
           _id
         }
       }
+      bookings {
+        _id
+        case {
+          device
+          cost
+          service {
+            _id
+            name
+            estimatedTime
+            estimatedPrice
+            imageUrl
+          }
+        }
+        endTime
+        startTime
+        status
+        user {
+          _id
+          firstName
+          lastName
+          role
+        }
+      }
+      owner {
+        _id
+        firstName
+        lastName
+      }
     }
   }
 `

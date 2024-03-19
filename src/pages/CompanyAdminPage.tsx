@@ -9,6 +9,7 @@ import facade from "@/util/authFacade"
 import DescriptionForm from "@/components/DescriptionForm"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import CompanyAdminTable from "@/components/companyAdmins/CompanyAdminTable"
+import CompanyBookings from "@/components/companyBookings/CompanyBookings"
 
 const CompanyAdminPage: FC = () => {
   const token = facade.getToken()
@@ -40,7 +41,7 @@ const CompanyAdminPage: FC = () => {
         <H2 text="Der skete en fejl, prøv igen senere" />
       </>
     )
-
+  
   const company: Company = data?.company
   return (
     <>
@@ -48,6 +49,7 @@ const CompanyAdminPage: FC = () => {
       <DescriptionForm company={company} token={token} />
       <CompanyAdminServiceTable company={company} token={token} />
       <CompanyAdminTable company={company} token={token} />
+      <CompanyBookings bookings={company.bookings!} token={token} />
     </>
   )
 }
