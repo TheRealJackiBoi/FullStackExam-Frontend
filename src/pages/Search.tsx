@@ -1,13 +1,19 @@
+import { useSearchParams } from "react-router-dom"
 import CompanyCard from "@/components/CompanyCard"
 import { useQuery } from "@apollo/client"
-import { GET_COMPANIES } from "@/graphql/company/companyQueries"
+import { SEARCH_COMPANIES } from "@/graphql/company/companyQueries"
 import { Link } from "react-router-dom"
 import { Company } from "@/types/companyTypes"
 import { Skeleton } from "@/components/ui/skeleton"
 import { H1, H2 } from "@/components/Typography"
-import CategoryCards from "@/components/CategoryCards"
-function Index() {
-  const { data, loading, error } = useQuery(GET_COMPANIES)
+
+function Search() {
+  const [query] = useSearchParams()
+  let searchTerm = query.get("search") || ""
+
+  const { data, loading, error } = useQuery(SEARCH_COMPANIES, {
+    variables: { query: searchTerm }, // Pass the searchTerm as 'query' variable
+  })
 
   // loading and error handling
   if (loading)
@@ -26,16 +32,14 @@ function Index() {
       </>
     )
 
-  const companies: Company[] = data.companies
+  const companies: Company[] = data.searchCompanies
+
   return (
     <>
-      <H1 text="Kategorier" />
-      <CategoryCards />
-      <H1 text="I nærheden" />
       <div className="flex flex-wrap gap-4 mt-10">
         {companies.map((company) => (
           <Link
-            className="w-3/12"
+            className="w-1/10"
             to={`/company/${company._id}`}
             key={company._id}
           >
@@ -47,4 +51,4 @@ function Index() {
   )
 }
 
-export default Index
+export default Search

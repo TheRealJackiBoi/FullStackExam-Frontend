@@ -77,3 +77,21 @@ export const GET_COMPANIES = gql`
     }
   }
 `
+
+export const SEARCH_COMPANIES = gql`
+  query Query($query: String!) {
+    searchCompanies(query: $query) {
+      _id
+      name
+      description
+      categories
+      services {
+        _id
+        name
+        estimatedTime
+        estimatedPrice
+        imageUrl
+      }
+    }
+  }
+`

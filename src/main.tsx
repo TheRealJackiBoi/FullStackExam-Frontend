@@ -20,6 +20,7 @@ import { ProtectedRoute } from "@/util/ProtectedRoutes.tsx" // Import ProtectedR
 import { User } from "@/types/usertypes.ts" // Import User and ParamsType types
 import { RouteParams } from "@/types/router.ts" // Import RouteParams type
 import Index from "./pages/Index.tsx"
+import Search from "./pages/Search.tsx"
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index element={<Index />} />
+      <Route path="search" element={<Search />} />
       <Route path="company">
         <Route path=":id" element={<CompanyHomePage />} />
         <Route
