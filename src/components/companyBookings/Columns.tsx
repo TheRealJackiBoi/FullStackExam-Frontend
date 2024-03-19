@@ -1,19 +1,18 @@
 import { Booking, Status } from "@/types/bookingTypes"
 import { Button } from "../ui/button"
 import { ColumnDef } from "@tanstack/react-table"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select"
 import { useToast } from "../ui/use-toast"
 import { useMutation } from "@apollo/client"
-import { DELETE_BOOKING } from "@/graphql/booking/bookingMutations"
+import { DELETE_BOOKING, UPDATE_BOOKING } from "@/graphql/booking/bookingMutations"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import facade from "@/util/authFacade"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
 
 export const columns: ColumnDef<Booking>[] = [
   {
@@ -60,19 +59,54 @@ export const columns: ColumnDef<Booking>[] = [
       const status = booking.status
       const statusValues = Object.values(Status)
 
+      const { toast } = useToast()
+
+      const [updateBooking] = useMutation(UPDATE_BOOKING, {
+        refetchQueries: [GET_COMPANY_BY_ID]
+      })
+      
+      const handleUpdateStatus = async(newStatus: string) => {
+        if (newStatus === status) {
+          return;
+        }
+        await updateBooking({
+          variables: {
+            "id": booking._id,
+            "device": booking.case.device,
+            "cost": booking.case.cost,
+            "serviceId": booking.case.service!._id,
+            "token": facade.getToken(),
+            "status": newStatus,
+          }
+        })
+        .then(() => {
+          toast({
+            title: "Status opdateret",
+            description: `Status for bookingen er blevet opdateret`,
+          })
+        })
+        .catch((err: Error) => {
+          toast({
+            title: "Fejl",
+            description: "Der skete en fejl under opdatering af status",
+          })
+          console.log(err)
+        })
+      }
+
       return (
-        <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Vælg status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant={"ghost"}>{status || "Vælg status"}</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuRadioGroup onValueChange={handleUpdateStatus}>
               {statusValues.map((s: Status) => (
-                <SelectItem value="s">{s}</SelectItem>
+                <DropdownMenuRadioItem value={s} key={s}>{s}</DropdownMenuRadioItem>
               ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )
     },
   },
@@ -111,7 +145,9 @@ export const columns: ColumnDef<Booking>[] = [
 
       return (
         <div className="flex justify-end">
-          <Button variant={"destructive"} onClick={handleDelete} >Slet</Button>
+          <Button variant={"destructive"} onClick={handleDelete}>
+            Slet
+          </Button>
         </div>
       )
     },
