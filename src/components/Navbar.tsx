@@ -1,32 +1,15 @@
-import { Link, createSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Button, buttonVariants } from "./ui/button"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from "@/components/ui/input"
 import logo from "@/assets/logo.png"
 import { ModeToggle } from "./ui/mode-toggle"
 import { FaCompass } from "react-icons/fa6"
 import useAuth from "@/util/AuthContext"
-import { searchSchema } from "@/schema/searchSchema"
 import { useNavigate } from "react-router-dom"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form"
 
 const NavBar = () => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-
-  const form = useForm({
-    resolver: zodResolver(searchSchema),
-    defaultValues: {
-      search: "",
-    },
-  })
 
   return (
     <nav className=" w-screen flex p-2 justify-between">
