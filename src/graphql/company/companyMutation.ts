@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client"
 
-
 export const CREATE_COMPANY = gql`
   mutation Mutation($name: String!, $description: String!, $zipCode: Int!, $street: String!, $houseNumber: Int!, $companyOwnerId: ID!, $token: String!) {
     createCompany(name: $name, description: $description, zipCode: $zipCode, street: $street, houseNumber: $houseNumber, companyOwnerId: $companyOwnerId, token: $token) {
@@ -24,7 +23,6 @@ export const CREATE_COMPANY = gql`
   }
 `
 
-
 export const UPDATE_COMPANY_BY_ID = gql`
   mutation Mutation($id: ID!, $token: String!, $houseNumber: Int, $streetName: String, $zipCode: Int, $description: String, $name: String) {
     updateCompany(_id: $id, token: $token, houseNumber: $houseNumber, streetName: $streetName, zipCode: $zipCode, description: $description, name: $name) {
@@ -43,7 +41,6 @@ export const UPDATE_COMPANY_BY_ID = gql`
   }
 `
 
-
 export const DELETE_COMPANY_BY_ID = gql`
   mutation Mutation($id: ID!, $token: String!) {
     deleteCompany(_id: $id, token: $token) {
@@ -52,7 +49,6 @@ export const DELETE_COMPANY_BY_ID = gql`
     }
   }
 `
-
 
 export const REMOVE_COMPANY_ADMIN = gql`
   mutation Mutation($userId: ID!, $companyId: ID!, $token: String!) {
@@ -69,6 +65,32 @@ export const REMOVE_COMPANY_ADMIN = gql`
         firstName
         lastName
       }
+    }
+  }
+`
+
+export const CREATE_COMPANY_ADMIN = gql`
+  mutation Mutation($firstName: String!, $lastName: String!, $email: String!, $password: String!, $role: Role!, $zipCode: Int!, $street: String!, $houseNumber: Int!, $companyId: ID!, $token: String!) {
+    createCompanyAdmin(firstName: $firstName, lastName: $lastName, email: $email, password: $password, role: $role, zipCode: $zipCode, street: $street, houseNumber: $houseNumber, companyId: $companyId, token: $token) {
+      _id
+      address {
+        street
+        _id
+        houseNumber
+        zipCode
+      }
+      firstName
+      lastName
+      role
+    }
+  }
+`
+export const DELETE_COMPANY_ADMIN = gql`
+  mutation deleteCompanyAdmin($userId: ID!, $companyId: ID!, $token: String!) {
+    deleteCompanyAdmin(userId: $userId, companyId: $companyId, token: $token) {
+      _id
+      firstName
+      lastName
     }
   }
 `

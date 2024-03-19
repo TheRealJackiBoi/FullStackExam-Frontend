@@ -1,6 +1,7 @@
 import { User } from "./usertypes";
 import { Address } from "./addressTypes";
 import { Service } from "./serviceTypes";
+import { Booking } from "./bookingTypes";
 
 export interface Company {
     _id?: string;
@@ -9,9 +10,10 @@ export interface Company {
     services?: Service[];
     address: Address;
     description: string;
-    //admins?: ObjectId[];
+    admins?: User[];
     openForBooking: boolean;
     bustle?: Bustle;
+    bookings?: Booking[];
   }
 
   export enum Bustle {

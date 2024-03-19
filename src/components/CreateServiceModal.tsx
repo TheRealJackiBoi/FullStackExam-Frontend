@@ -71,8 +71,8 @@ const CreateServiceModal = ({
       .catch((error: Error) => {
         toast({
           variant: "destructive",
-          title: "fejl",
-          description: "kunne ikke lave service, prøv igen senere",
+          title: "Fejl",
+          description: "Kunne ikke lave servicen, prøv igen senere",
         })
         console.log(error)
       })
@@ -163,6 +163,7 @@ const CreateServiceModal = ({
               )}
             />
             <DialogFooter>
+              <DialogClose asChild>
               <Button
                 type="submit"
                 variant={"secondary"}
@@ -170,6 +171,7 @@ const CreateServiceModal = ({
               >
                 Tilføj
               </Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </Form>
