@@ -61,30 +61,32 @@ const DescriptionForm = ({
 
   return (
     <>
-      <H2 text="Beskrivelse" />
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            type="submit"
-            variant={"secondary"}
-            className="mt-4 bg-blue-500 text-white hover:bg-blue-300"
-          >
-            Opdater
-          </Button>
-        </form>
-      </Form>
+      <div className="flex flex-col grow">
+        <H2 text="Beskrivelse" />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input className="h-10" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              variant={"secondary"}
+              className="mt-4 bg-blue-500 text-white hover:bg-blue-300"
+            >
+              Opdater
+            </Button>
+          </form>
+        </Form>
+      </div>
     </>
   )
 }

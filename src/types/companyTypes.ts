@@ -1,6 +1,8 @@
 import { User } from "./usertypes";
 import { Address } from "./addressTypes";
 import { Service } from "./serviceTypes";
+import { Booking } from "./bookingTypes";
+import { CategoryEnum } from "./categoryEnum"
 
 export interface Company {
     _id?: string;
@@ -9,13 +11,15 @@ export interface Company {
     services?: Service[];
     address: Address;
     description: string;
-    //admins?: ObjectId[];
+    admins?: User[];
     openForBooking: boolean;
     bustle?: Bustle;
+    bookings?: Booking[];
+    categories: CategoryEnum[];
   }
 
-  export enum Bustle {
-    LOW = "LOW",
-    MEDIUM = "MEDIUM",
-    HIGH = "HIGH"
-  }
+export enum Bustle {
+  LOW = "LOW",
+  MEDIUM = "MEDIUM",
+  HIGH = "HIGH",
+}

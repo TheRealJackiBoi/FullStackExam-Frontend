@@ -15,11 +15,21 @@ export const GET_COMPANY_BY_ID = gql`
         name
         _id
       }
+      categories
       address {
         _id
         zipCode
         street
         houseNumber
+      }
+      admins {
+        _id
+        firstName
+        lastName
+        role
+        company {
+          _id
+        }
       }
     }
   }
@@ -42,6 +52,7 @@ export const GET_COMPANY = gql`
         name
         _id
       }
+      categories
       owner {
         lastName
         firstName
@@ -62,6 +73,7 @@ export const GET_COMPANIES = gql`
         name
         estimatedTime
       }
+      categories
       address {
         _id
         zipCode
@@ -71,6 +83,24 @@ export const GET_COMPANIES = gql`
       description
       openForBooking
       bustle
+    }
+  }
+`
+
+export const SEARCH_COMPANIES = gql`
+  query Query($query: String!) {
+    searchCompanies(query: $query) {
+      _id
+      name
+      description
+      categories
+      services {
+        _id
+        name
+        estimatedTime
+        estimatedPrice
+        imageUrl
+      }
     }
   }
 `
