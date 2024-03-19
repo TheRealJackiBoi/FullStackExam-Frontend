@@ -8,6 +8,7 @@ import CompanyAdminServiceTable from "@/components/CompanyAdminServiceTable"
 import facade from "@/util/authFacade"
 import DescriptionForm from "@/components/DescriptionForm"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
+import CategoryForm from "@/components/CategoryForm"
 
 const CompanyAdminPage: FC = () => {
   const token = facade.getToken()
@@ -44,7 +45,11 @@ const CompanyAdminPage: FC = () => {
   return (
     <>
       <H1 text={company!.name} className=" my-4 " />
-      <DescriptionForm company={company} token={token} />
+      <div className="flex gap-4">
+        <DescriptionForm company={company} token={token} />
+        <CategoryForm company={company} token={token} />
+      </div>
+
       <CompanyAdminServiceTable company={company} token={token} />
     </>
   )

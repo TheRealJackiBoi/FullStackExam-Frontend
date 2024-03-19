@@ -15,6 +15,7 @@ export const GET_COMPANY_BY_ID = gql`
         name
         _id
       }
+      categories
       address {
         _id
         zipCode
@@ -42,6 +43,7 @@ export const GET_COMPANY = gql`
         name
         _id
       }
+      categories
       owner {
         lastName
         firstName
@@ -62,6 +64,7 @@ export const GET_COMPANIES = gql`
         name
         estimatedTime
       }
+      categories
       address {
         _id
         zipCode

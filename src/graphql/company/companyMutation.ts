@@ -1,9 +1,8 @@
 import { gql } from "@apollo/client"
 
-
 export const CREATE_COMPANY = gql`
-  mutation Mutation($name: String!, $description: String!, $zipCode: Int!, $street: String!, $houseNumber: Int!, $companyOwnerId: ID!, $token: String!) {
-    createCompany(name: $name, description: $description, zipCode: $zipCode, street: $street, houseNumber: $houseNumber, companyOwnerId: $companyOwnerId, token: $token) {
+  mutation Mutation($name: String!, $description: String!, $zipCode: Int!, $street: String!, $houseNumber: Int!, $companyOwnerId: ID!, $token: String!, $categories: [Category!]) {
+    createCompany(name: $name, description: $description, zipCode: $zipCode, street: $street, houseNumber: $houseNumber, companyOwnerId: $companyOwnerId, token: $token, categories: $categories) {
       _id
       name
       address {
@@ -20,14 +19,14 @@ export const CREATE_COMPANY = gql`
         firstName
         lastName
       }
+      categories
     }
   }
 `
 
-
 export const UPDATE_COMPANY_BY_ID = gql`
-  mutation Mutation($id: ID!, $token: String!, $houseNumber: Int, $streetName: String, $zipCode: Int, $description: String, $name: String) {
-    updateCompany(_id: $id, token: $token, houseNumber: $houseNumber, streetName: $streetName, zipCode: $zipCode, description: $description, name: $name) {
+  mutation Mutation($id: ID!, $token: String!, $houseNumber: Int, $streetName: String, $zipCode: Int, $description: String, $name: String, $categories: [Category!]) {
+    updateCompany(_id: $id, token: $token, houseNumber: $houseNumber, streetName: $streetName, zipCode: $zipCode, description: $description, name: $name, categories: $categories) {
       _id
       name
       address {
@@ -36,13 +35,13 @@ export const UPDATE_COMPANY_BY_ID = gql`
         street
         houseNumber
       }
+      categories
       description
       openForBooking
       bustle
     }
   }
 `
-
 
 export const DELETE_COMPANY_BY_ID = gql`
   mutation Mutation($id: ID!, $token: String!) {
@@ -52,7 +51,6 @@ export const DELETE_COMPANY_BY_ID = gql`
     }
   }
 `
-
 
 export const REMOVE_COMPANY_ADMIN = gql`
   mutation Mutation($userId: ID!, $companyId: ID!, $token: String!) {
