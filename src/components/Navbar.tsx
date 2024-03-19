@@ -39,37 +39,21 @@ const NavBar = () => {
         </Button>
         <ModeToggle />
       </div>
-      <Form {...form}>
-        <form className="space-y-2 columns-1">
-          <FormField
-            control={form.control}
-            name="search"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Søg"
-                    className=" rounded-full"
-                    onKeyUp={(event) => {
-                      if (event.key === "Enter") {
-                        navigate({
-                          pathname: "search",
-                          search: `?query=${createSearchParams({
-                            query: event.currentTarget.value,
-                          })}`,
-                        })
-                      }
-                    }}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </form>
-      </Form>
+
+      <Input
+        type="text"
+        placeholder="Søg"
+        className="w-2/5 sm:w-2/5 md:w-2/5 lg:w-1/5 rounded-full "
+        onKeyUp={(event) => {
+          if (event.key === "Enter") {
+            navigate({
+              pathname: "/search",
+              search: `?search=${event.currentTarget.value}`,
+            })
+          }
+        }}
+      />
+
       <div className="flex gap-2">
         {(user && (
           <Button variant="outline" onClick={logout}>
