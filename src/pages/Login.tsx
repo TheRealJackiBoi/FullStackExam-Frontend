@@ -57,7 +57,7 @@ function Login() {
   }
 
   return (
-    <Card className="w-6/12 mx-auto mt-10 pt-6">
+    <Card className="w-full md:w-6/12 mx-auto mt-10 pt-6">
       <CardContent>
         <Form {...form}>
           <form
