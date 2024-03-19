@@ -1,3 +1,4 @@
+import { Booking } from "./bookingTypes"
 import { Company } from "./companyTypes"
 
 // Define your types
@@ -8,6 +9,7 @@ export type User = {
   role: string
   address: Address
   company?: Company 
+  bookings?: Booking[]
 }
 
 export type Address = {

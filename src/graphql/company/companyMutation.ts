@@ -70,3 +70,29 @@ export const REMOVE_COMPANY_ADMIN = gql`
     }
   }
 `
+
+export const CREATE_COMPANY_ADMIN = gql`
+  mutation Mutation($firstName: String!, $lastName: String!, $email: String!, $password: String!, $role: Role!, $zipCode: Int!, $street: String!, $houseNumber: Int!, $companyId: ID!, $token: String!) {
+    createCompanyAdmin(firstName: $firstName, lastName: $lastName, email: $email, password: $password, role: $role, zipCode: $zipCode, street: $street, houseNumber: $houseNumber, companyId: $companyId, token: $token) {
+      _id
+      address {
+        street
+        _id
+        houseNumber
+        zipCode
+      }
+      firstName
+      lastName
+      role
+    }
+  }
+`
+export const DELETE_COMPANY_ADMIN = gql`
+  mutation deleteCompanyAdmin($userId: ID!, $companyId: ID!, $token: String!) {
+    deleteCompanyAdmin(userId: $userId, companyId: $companyId, token: $token) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`
