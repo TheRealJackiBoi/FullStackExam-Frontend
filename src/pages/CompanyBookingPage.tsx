@@ -70,6 +70,8 @@ function BookingRender({ company }: CompanyData) {
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       enhed: "",
+      model: "",
+      brand: "",
       date: undefined,
     },
   })
@@ -146,7 +148,33 @@ function BookingRender({ company }: CompanyData) {
                     name="enhed"
                     render={({ field }) => (
                       <FormItem className="flex flex-col mb-4">
-                        <FormLabel className="mr-2">Enhed</FormLabel>
+                        <FormLabel className="mr-2">Enhedens type</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="brand"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col mb-4">
+                        <FormLabel className="mr-2">Enhedens mærke</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                   <FormField
+                    control={form.control}
+                    name="model"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col mb-4">
+                        <FormLabel className="mr-2">Model</FormLabel>
                         <FormControl>
                           <Input {...field} />
                         </FormControl>
