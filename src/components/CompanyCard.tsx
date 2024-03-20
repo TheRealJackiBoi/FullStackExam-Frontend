@@ -49,8 +49,10 @@ const CompanyCard = ({ company }: { company: Company }) => {
         />
       </div>
       <CardContent className="mt-1 justify-between gap-4 p-2">
-        <CardTitle>{company.description}</CardTitle>
-        <CardDescription className="-mt-0.5">test</CardDescription>
+        <CardTitle>{company.name}</CardTitle>
+        <CardDescription className="-mt-0.5">
+          {company.description}
+        </CardDescription>
       </CardContent>
       <CardFooter className="p-2 pt-1 border-dashed border-t-2 overflow-hidden">
         {renderServices()}
