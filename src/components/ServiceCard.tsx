@@ -8,7 +8,7 @@ import {
 
 const ServiceCard = ({ service }: { service: Service }) => {
   return (
-    <Card className="w-3/12 min-w-fit">
+    <Card className="min-w-3/12 my-2 mx-2">
       <div className="w-full rounded-t-xl">
         <img
           src={service.imageUrl}
