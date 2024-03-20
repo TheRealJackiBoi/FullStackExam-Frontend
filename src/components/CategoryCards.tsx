@@ -1,7 +1,7 @@
 import CategoryCard from "./CategoryCard"
 function CategoryCards() {
   return (
-    <div className="flex flex-wrap gap-4 mt-10">
+    <div className="flex flex-wrap mb-5 md:justify-start justify-center gap-2 mt-10">
       <CategoryCard value={"pc"} label={"PC"} />
 
       <CategoryCard value={"mobile"} label={"Mobil"} />

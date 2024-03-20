@@ -3,8 +3,12 @@ import { Link } from "react-router-dom"
 
 function CategoryCard({ value, label }: { value: string; label: string }) {
   return (
-    <Link className="w-2/12" to={`/search?search=${value}`} key={value}>
-      <Card className="w-3/12 min-w-fit">
+    <Link
+      className="w-full sm:w-6/12 md:w-3/12 sm:w-4/12 lg:w-2/12"
+      to={`/search?search=${value}`}
+      key={value}
+    >
+      <Card className="w-12/12 min-w-fit">
         <div className="w-full rounded-t-xl">
           <img
             src="https://placehold.co/600x400/EEE/31343C"

@@ -10,10 +10,13 @@ import DescriptionForm from "@/components/DescriptionForm"
 import { GET_COMPANY_BY_ID } from "@/graphql/company/companyQueries"
 import CategoryForm from "@/components/CategoryForm"
 import CompanyAdminTable from "@/components/companyAdmins/CompanyAdminTable"
+import CompanyBookings from "@/components/companyBookings/CompanyBookings"
+import useAuth from "@/util/AuthContext"
 
 const CompanyAdminPage: FC = () => {
   const token = facade.getToken()
   const { id } = useParams()
+  const { user } = useAuth()
 
   // fetching company data
   const { loading, error, data } = useQuery(GET_COMPANY_BY_ID, {
@@ -52,7 +55,10 @@ const CompanyAdminPage: FC = () => {
       </div>
 
       <CompanyAdminServiceTable company={company} token={token} />
-      <CompanyAdminTable company={company} token={token} />
+      {(user?.role === "ADMIN" || user?.role === "COMPANYOWNER") && (
+        <CompanyAdminTable company={company} token={token} />
+      )}
+      <CompanyBookings bookings={company.bookings!} token={token} />
     </>
   )
 }
