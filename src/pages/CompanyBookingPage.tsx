@@ -90,16 +90,11 @@ function BookingRender({ company }: CompanyData) {
       return
     }
 
-    //end time tid skal sætte til : start tid + estimatedTime på service
-    const estimatedTimeInMilliseconds = selectedService?.estimatedTime ?? 0
-    // Convert date to milliseconds
-    const dateInMilliseconds = values.date.getTime()
-    // Add the two durations together
-    const combinedTimeInMilliseconds =
-      dateInMilliseconds + estimatedTimeInMilliseconds
-    // Create a new Date object from the combined time
-    const calculatedEndTime = new Date(combinedTimeInMilliseconds)
+    const calculatedEndTime = new Date(values.date)
+    console.log("before", calculatedEndTime)
 
+    calculatedEndTime.setDate(values.date.getDate() + selectedService!.estimatedTime)
+    console.log("after", calculatedEndTime)
     await createBooking({
       variables: {
         startTime: values.date,
