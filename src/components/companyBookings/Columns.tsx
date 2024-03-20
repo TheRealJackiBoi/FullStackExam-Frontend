@@ -38,8 +38,8 @@ export const columns: ColumnDef<Booking>[] = [
     header: "Slut tid",
     cell: ({ row }) => {
       const booking: Booking = row.original
-      const startTime = booking.startTime
-      const date = new Date(parseInt(startTime))
+      const endTime = booking.endTime
+      const date = new Date(parseInt(endTime))
       return <div>{date.toLocaleDateString()}</div>
     },
   },
