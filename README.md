@@ -87,7 +87,7 @@ This section outlines the technical requirements and dependencies for the projec
 
 ### Database EER diagram
 [EER](https://lucid.app/lucidchart/e908afa7-3d7e-40a3-b10a-17300a5984f7/edit?invitationId=inv_009e7adf-fb80-4c81-980a-4ba6ce353409&page=0_0#)
-![alt text](image.png)
+![alt text](image-2.png)
 
 ## Project Repository Link
 [Link to frontend Project Repository](https://github.com/TheRealJackiBoi/FullStackExam-Frontend)
